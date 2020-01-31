@@ -59,33 +59,36 @@ require 'header.php';
 ?>
 
 <div class ="smooth">
-    <div class="parallax-artikel"></div>
-<!---Logo---->
-<div class="d-flex justify-content-center parallax-artikel">
-<a href="#" style="font-size:33px; ;color:red" title="Startseite">Abdul Store</a>
+    <div class="parallax-artikel"  style="margin-top:66px">
+        <!---Logo---->
+        <br><br><br><br><br><br>
+        <div class="col-4 text-center mx-auto" style="background-color:#ccc !important">
+            <a href="#" style="font-size:33px; ;color:red;font-family: Lucida Grande" title="Startseite">
+                <h2>Abdul Shopping Site</h2>
+            </a>
+        </div>
+        <!---Categori---->
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ml-4 mr-4 mt-4" style="background-color:#ccc !important;">
+            <a class="navbar-brand" href="index.php">All Articles</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ">
+                    <?php foreach ($categories as $category) { 
+                    if(isset($_GET['cid'])){
+                    $active = ($category->getId() == $_GET['cid']) ? ' page-active' : '';
+                    }?>
+                    <li class="nav-item  <?php if(isset($_GET['cid'])){echo $active;}?>">
+                        <a class="nav-link" href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>"><?= $category->getName() ?></a>
+                    </li>
+                    <?php }?>
+                </ul>
+            </div>
+        </nav>
+    </div>
 </div>
-
-
-<!---Categori---->
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light ml-4 mr-4 mt-4" style="background-color:#999999 !important;">
-  <a class="navbar-brand" href="index.php">Categories</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ">
-        <?php foreach ($categories as $category) { 
-        if(isset($_GET['cid'])){
-        $active = ($category->getId() == $_GET['cid']) ? ' page-active' : '';
-        }?>
-        <li class="nav-item  <?php if(isset($_GET['cid'])){echo $active;}?>">
-            <a class="nav-link text-white" href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>"><?= $category->getName() ?></a>
-        </li>
-        <?php }?>
-    </ul>
-  </div>
-</nav>
 
 <!---Filter---->
 <br>
@@ -99,67 +102,66 @@ require 'header.php';
 
 <br><br>
 <!---1---->
-<div class="container-fluid">
+
+
+
+<div class="container-fluid content">
     <div class="row "> 
 
-        <div class="list-group col-12 col-md-2" style="width:200px; ">
+        <div class="col-12 col-md-2 menu" style="width:200px;background-color:#ffffff!important; ">
+            <div class="card cart-responsive">
                 <?php if (isset($_GET['cid'])) {?>
-                    <p style="font-weight: bold" class="mt-3 text-center">Sub Gategories </p>
+                    <p style="font-weight: bold" class="mt-3 text-center card-header">Sub Gategories </p>
                     <?php foreach ($subcategories as $subcategory) { ?>
+                    <div class="card-content">
                             <a href="index.php?subcid=<?= $subcategory->getId() ?>"  class="list-group-item list-group-item-action">
-                                <?= $subcategory->getName() ?></a>
+                                <?= $subcategory->getName() ?>
+                            </a>
+                     </div>
                 <?php  }}  
                     
                 if (isset($_GET['subcid']))  {?>
-                    <p style="font-weight: bold" class="mt-3 text-center">Sub Gategories </p>
+                    <p style="font-weight: bold" class="mt-3 text-center card-header">Sub Gategories </p>
                         <a  class="list-group-item list-group-item-action">
                             <?= $getSubCategoryById['name'] ?>
                         </a>
                 <?php } 
                 
                 if (empty($_GET)){ ?>
-                    <p style="font-weight: bold" class="mt-3 text-center">Gategories </p>
+                    <p style="font-weight: bold" class="mt-3 text-center card-header">Gategories </p>
                     <?php  foreach ($categories as $category) {?>
-                        <a href="index.php?cid=<?= $category->getId() ?>"  class="list-group-item list-group-item-action" >
-                            <?= $category->getName() ?>
-                        </a>
+                        <div class="card-content">
+                            <a href="index.php?cid=<?= $category->getId() ?>"  >
+                                <?= $category->getName() ?>
+                            </a>
+                        </div>
                     <?php  }} ?>
-            
+            </div>
         </div>
 
         <?php if(isset($_GET['cid'])){ ?>
-            <div class="col-12 col-md-10" id="postsdiv">
+            <div class="col-12 col-md-10 " id="postsdiv">
                 <?php 
                 foreach ($Products as $Product) {
                 //  echo '<pre>'; print_r($Product);die();
                 ?>
-                    <div class=" mt-4 pl-1 pr-1 ml-1 " style="width:267px;float:left">
-                    <div class=" bg-white pl-1 pr-1">
-                            <!-- Preview Image -->
-                        <div>
+                        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:380px;float:left;background-color:#ffffff!important;">
                             <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product['productId']; ?>">
-                            <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product['imagee']; ?>" alt="" width="550px">
+                                <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product['imagee']; ?>" alt="">
                             </a>
+                            <div class="card-body">
+                                <h6 class="card-title text-center"><?= $Product['title'];  ?></h6>
+
+                                <p class="card-text mt-2 text-center">
+                                    <small class="text-muted"><?= $Product['article'];  ?></small> 
+                                </p>
+
+                                <p class="card-text mt-2 text-right ">
+                                   <?= $Product['price']; ?> €  Pay
+                                </p>
+                                
+                            </div>
                         </div>
-                        <!-- Title -->
-                        <div align="center"  style="color:  #000; height:40px">
-                            <p><?= $Product['title'];  ?></p>
-                        </div>
-                        <!-- Author -->
-                        <hr>
-                        <!-- Post Content -->
-                        <div align="center" style="color:  #4d4d4d; height:30px">
-                            <p ><?= $Product['article']; ?>
-                            </p>
-                        </div>
-                        <hr>
-                        <!-- Price -->
-                        <div align="center">
-                            <a style="color: #f50c20;"> <?= $Product['price']; ?> €  Pay</a>
-                        </div>
-                        <br>
-                    </div>
-                    </div>
                 <?php }?>
             </div>
         <?php }
@@ -170,33 +172,25 @@ require 'header.php';
                 foreach ($Products as $Product) {
                 // echo '<pre>'; print_r($Products);die();
                 ?>
-                    <div class="mt-4 pl-1 pr-1 ml-1" style="width:267px;float:left">
-                    <div class=" bg-white pl-1 pr-1">
-                            <!-- Preview Image -->
-                        <div>
-                            <a href="article/view_one_artikel.php?id=<?= $Product->getId(); ?>">
-                            <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product->getImagee(); ?>" alt="" width="550px">
+                        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:380px;float:left;background-color:#ffffff!important;">
+                            <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
+                                <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product->getImagee(); ?>" alt="">
                             </a>
+                            <div class="card-body">
+                                <h6 class="card-title text-center"><?= $Product->getTitle();  ?></h6>
+
+                                <p class="card-text mt-2 text-center">
+                                    <small class="text-muted"><?= $Product->getArticle();  ?></small> 
+                                </p>
+
+                                <p class="card-text mt-2 text-right ">
+                                 <?= $Product->getPrice(); ?> €  Pay
+                                </p>
+                                
+                            </div>
                         </div>
-                        <!-- Title -->
-                        <div align="center"  style="color:  #000; height:40px">
-                            <p><?= $Product->getTitle();  ?></p>
-                        </div>
-                        <!-- Author -->
-                        <hr>
-                        <!-- Post Content -->
-                        <div align="center" style="color:  #4d4d4d; height:30px">
-                            <p ><?= $Product->getArticle(); ?>
-                            </p>
-                        </div>
-                        <hr>
-                        <!-- Price -->
-                        <div align="center">
-                            <a style="color: #f50c20;"> <?= $Product->getPrice(); ?> €  Pay</a>
-                        </div>
-                        <br>
-                    </div>
-                    </div>
+
+                  
                 <?php }?>
             </div>
         <?php }?>

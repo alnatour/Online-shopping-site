@@ -51,8 +51,8 @@
             url: "ajax.php", /* PAGE WHERE WE WILL PASS THE DATA */
             data:{"PageSize": Pagesize}, /* THE DATA WE WILL BE PASSING */
             success: function(response){ /* GET THE TO BE RETURNED DATA */
-              //$("#postsdiv").html(response);
-              window.location.reload();
+              $("#postsdiv").html(response);
+              //window.location.reload();
               console.log(response);
               /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
             },
@@ -97,9 +97,9 @@
       }
       .parallax-artikel {
         /* The image used */
-        background-image: url("http://www.peoplefirstofcanada.ca/wp-content/uploads/2014/11/blue_background.jpg");
+        background-image: url("https://marketpeima.com/wp-content/uploads/%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%DB%8C%D8%A7%D8%A8%DB%8C-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-1.jpg");
         /* Set a specific height */
-        min-height: 100px; 
+        min-height: 300px; 
 
         /* Create the parallax scrolling effect */
         background-attachment: fixed;
@@ -112,7 +112,13 @@
             .hidden{
               display:none;
             }
-
+          }
+      @media only screen and (max-width: 451px)  {
+        .cart-responsive{
+          width:90%!important;
+          margin-left:5% !important;
+          margin-top:5px !important;
+        }
       }
 
       .remove{
@@ -147,7 +153,7 @@
         margin-top: auto;
         margin-bottom: auto;
         width: auto;
-        background-color: rgba(0,0,0,0.5) !important;
+        background-color:#ffffff!important;
       }
       .support{
         float:right
@@ -156,8 +162,19 @@
         color:white
       }
       .nav-link.active {
-        background-color: #4285f4!important
+        background-color: #4285f4!important;
     }
+
+    .content .menu .card .card-content a {
+				display: block;
+				box-sizing: border-box;
+				padding: 8px 10px;
+				border-bottom: 1px solid #e4e1e1;
+				color: #444;
+			}
+			.content .menu .card .card-content a:hover {
+				padding-left: 20px; background: #ccc; transition: 0.1s;
+			}
 
     </style>
 
@@ -200,17 +217,15 @@
     <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
  
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo BASE_URL . 'contact_with_us/contact.html' ?>"><i class="fas fa-envelope" ></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+              <a class="nav-link" href="<?php echo BASE_URL . 'contact_with_us/contact.php' ?>"><i class="fas fa-envelope" ></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
             </li> 
-               <?php if (!isset($_SESSION['loggedUser']) && !isset($_SESSION['role'])) { ?>
+               <?php if (!isset($_SESSION['user'] )) { ?>
                       <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/register.php' ?>" class="nav-link">Register</a> </li>
                       <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/login.php' ?>" class="nav-link">Login</a> </li>
                  <?php  } ?>
-              <?php if (isset($_SESSION['loggedUser'])) { ?>
-                     <li class="nav-item support"><a class="nav-link bg-info">Welcom '.$_SESSION['user']->getLastname().'</a> </li>
-                     <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/log_out.php'?> " class="nav-link">LogOut</a> </li>
-                 <?php } ?>
-                  <?php if(isset($_SESSION['loggedUser']) || isset($_SESSION['role'])) { ?>
+  
+                  <?php if( isset($_SESSION['user']) ) { ?>
+                    <li class="nav-item support"><a class="nav-link bg-info">Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
                     <li class="nav-item support"><a href="<?php echo BASE_URL . 'article/posts.php'?>" class="nav-link"> Admin Plan</a></li>
                     <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/log_out.php' ?>" class="nav-link">LogOut</a></li>
                 <?php } ?>

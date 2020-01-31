@@ -1,7 +1,11 @@
 <?php
 
 require '../../include.php';
-
+if(!isset($_SESSION['user']) )
+{	// not logged in
+    header('Location: '.BASE_URL.'index.php');
+    die();
+}
 $id = $_GET['id'];
 
 $User_db = RegisterRepository::getInstance();

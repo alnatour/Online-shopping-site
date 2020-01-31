@@ -1,7 +1,6 @@
 <?php 
 require '../include.php';
-
-require '../controlle/session.php';
+include(ROOT_PATH . '/controlle/session.php');
 
 $errors = array();
 
@@ -16,8 +15,7 @@ if (isset($_POST['submit'])) {
 }
 
     //echo '<pre>'; print_r($user->getFirstname());die();
-
-require '../header.php';
+include(ROOT_PATH . '/header.php');
 ?>
 <div style="height: 100%; background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg')">
 <div class="container">
@@ -52,7 +50,7 @@ require '../header.php';
 			</div>
 			<div class="card-footer" style="color:#fff">
 				<div class="d-flex justify-content-center links">
-					<p>Don't have an account? </p> <a href="http://localhost:8888/kontakte_verwalten/registration/register.php" style="font-weight: bold;color:#66a3ff ;text-decoration: none;">&nbspSign Up</a>
+					<p>Don't have an account? </p> <a href="<?php echo BASE_URL . 'registration/register.php' ?>" style="font-weight: bold;color:#66a3ff ;text-decoration: none;">&nbspSign Up</a>
 				</div>
 
 			</div>
@@ -61,5 +59,4 @@ require '../header.php';
 </div>
 </div>
 
-<?php
-require '../footer.php';
+<?php include(ROOT_PATH . '/footer.php') ?>

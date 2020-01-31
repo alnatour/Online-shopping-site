@@ -25,11 +25,13 @@ class RegisterService {
             if (count($errors) == 0) {
                     if($this->registerDb->checkIfLoggedUserIsAdmin($user) == 3) {
                         $_SESSION['role'] = 3;
+                        
                     }else {
                         $_SESSION['loggedUser'] = true;
                     }
-                    
-                    header("Location: http://localhost/xampp/test/20.11.2019%20Produkts/kontakte_verwalten/index.php");
+
+                    $_SESSION['user'] = $user;
+                    header('Location: ../index.php');
                 }
             } else {
                 array_push($errors, "E-Mail $email is incorrect");
@@ -78,7 +80,7 @@ class RegisterService {
             if(!$insert){
                 $feedback = 'wurde nicht registriert';
             }else{
-                $_SESSION['loggedUser'] = true;
+                $_SESSION['user'] = 1;
             }
             $user->setId($insert);
             $_SESSION['user'] = $user;

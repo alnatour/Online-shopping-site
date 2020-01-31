@@ -1,11 +1,22 @@
 <?php
 require 'include.php';
 
-$userDb = RegisterRepository::getInstance();
 $articledb = ArticleDb::getInstance();
+$artikelinfo = new ArticleInfo();
 
-(isset($_POST["PageSize"])) ? $PageSize = $_POST["PageSize"] : $PageSize=4;
-$_SESSION['PageSize'] = $PageSize;
+$CategoriesDb = CategoriesDb::getInstance();
+$SubCategoriesDb = SubCategoriesDb::getInstance();
+
+$categories = $CategoriesDb->getAllCategories();
+
+
+$PageSize = stripslashes($_POST['PageSize']);
+
+if(isset($_POST['PageSize'])){
+    $_SESSION['PageSize'] = $PageSize ;
+} 
+
+
 
 if(!isset($_GET['page']))
 {
@@ -16,17 +27,33 @@ if(!isset($_GET['page']))
 }
 
 
-if (isset($_GET['categorie'])) {
-    $categorie = $_GET['categorie'];
-    }else{
-      $categorie = "";
+if(isset($_GET['cid']))
+{
+    $cid  =$_GET['cid'];
+    $subcategories = $SubCategoriesDb->getSubCategoryByCategoryid($cid);
+    $Products = $SubCategoriesDb->getAllProductsWithCategoryID($page, $PageSize,$cid);
+    $countAllProducts = $SubCategoriesDb->countAllProductsWithCategoryID($cid);
+    $total = count($countAllProducts);
+
+    //echo '<pre>'; print_r($Products);die();
+}else{
+    $subcid ='';
+    $Products = $articledb->GetProductsWithSubcat($page, $PageSize, $subcid);
+    $total = $articledb->CountAllArtikels();
 }
 
-$Articles_By_Categorie = $articledb->CountAllArtikels($categorie);
+if(isset($_GET['subcid']))
+{
+    $subcid =$_GET['subcid'];
+    $Subcategory = $SubCategoriesDb->getAllSubCategoriesAdmin();
+    $getSubCategoryById = $SubCategoriesDb->getSubCategoryById($subcid );
+    $Products = $articledb->GetProductsWithSubcat($page, $PageSize, $subcid);
+    $total = count($Products);
+}
+/** end Categories */
 
-$GetArticlesWithAuthor = $articledb->GetArticlesWithAuthor($page, $PageSize, $categorie);
 
-$total = $Articles_By_Categorie;
+
 $PageCount = ceil($total/$PageSize);
 
 ?>
@@ -34,51 +61,27 @@ $PageCount = ceil($total/$PageSize);
               
 
 
-        <?php 
-        foreach ($GetArticlesWithAuthor as $article_Author) {
-          $user = $userDb->findById($article_Author->getContactId());
-        ?>
-            <div class="col-md-3 mt-1 pl-1 pr-1">
-              <div class=" bg-white pl-2 pr-2">
-                    <!-- Preview Image -->
-                <div>
-                    <a href="article/view_one_artikel.php?id=<?= $article_Author->getId(); ?>">
-                    <img style="height: 172px;" class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $article_Author->getImagee(); ?>" alt="" width="550px">
-                    </a>
-                </div>
+<?php 
+    foreach ($Products as $Product) { ?>
 
-                <!-- Title -->
-                <h5><?= $article_Author->getTitle(); ?></h5>
 
-                <!-- Author -->
-                <div class="row mt-2">
-                        <div class="col">
-                            <small> by <a style="color:blue;text-transform: capitalize;"> <?= $article_Author->getFirstname(); ?> <?= $article_Author->getLastname(); ?></a></small>
-                        </div>
+        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:380px;float:left;background-color:#ffffff!important;">
+            <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
+                <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product->getImagee(); ?>" alt="">
+            </a>
+            <div class="card-body">
+                <h6 class="card-title text-center"><?= $Product->getTitle();  ?></h6>
 
-                            <!-- edit & delete -->
-                        <div class="col">
-                            <?php if( (isset($_SESSION['role']) && ($_SESSION['role'] == 3)) || (isset($_SESSION['user']) and $_SESSION['user']->getId() == $user->getId())   ) { 
-                                  ?>
-                            <a  href ='article/EditArticle.php?id=<?= $article_Author->getId(); ?>'><i class="material-icons  col-sm-2" title="Edit">&#xE254; </i></a>
-                          
-                            <a href="article/delete.php?id=<?= $article_Author->getId(); ?>" style="color:red;"><i class="material-icons col-sm-2" title="Delete">&#xE872;</i></a>
-                            <?php  }?>
-                        </div>
-                        <!-- end edit & delete -->
-                </div>
+                <p class="card-text mt-2 text-center">
+                    <small class="text-muted"><?= $Product->getArticle();  ?></small> 
+                </p>
 
-                  <hr>
-                  <!-- Date/Time -->
-                  <a style="color: #77777F;"> <small>Posted on <?= $article_Author->getDatum(); ?> </small></a>
-                  <hr>
-                  <!-- Post Content -->
-                  <p style="color:  #4d4d4d"><?php
-                  echo substr(strip_tags($article_Author->getArticle()) ,0 ,130);?>
-                  <?php if(strlen($article_Author->getArticle()) > 130){?>
-                    <a href="article/view_one_artikel.php?id=<?= $article_Author->getId(); ?>">... Read More</a>
-                    <?php } ?>
-                  </p>
-              </div>
+                <p class="card-text mt-2 text-right ">
+                    <?= $Product->getPrice(); ?> €  Pay
+                </p>
+                
             </div>
-        <?php }?>
+        </div>
+
+    
+<?php }?>

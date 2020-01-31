@@ -1,6 +1,10 @@
 <?php
 require '../include.php';
-
+if(!isset($_SESSION['user']) )
+{	// not logged in
+    header('Location: '.BASE_URL.'index.php');
+    die();
+}
 $edit ='';
 $id = $_GET['id'];
 $articledb = ArticleDb::getInstance();
