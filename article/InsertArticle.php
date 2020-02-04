@@ -1,59 +1,17 @@
 <?php
 require '../include.php';
-if(!isset($_SESSION['user']) )
-{	// not logged in
-    header('Location: '.BASE_URL.'index.php');
-    die();
-}
-$articledb = ArticleDb::getInstance();
 
-$CategoryDb = CategoriesDb::getInstance();
-$categories = $CategoryDb->getAllCategories();
+require_once(ROOT_PATH . '\controlle\insert_article_controller.php');
 
-//$SubCategoryDb = SubCategoriesDb::getInstance();
-//$SubCategories = $SubCategoryDb->getAllSubCategories();
-//$subcategories = $SubCategoryDb->getSubCategoryByCategoryid($cid);
-
-$UsersDb = RegisterRepository::getInstance();
-$Users = $UsersDb->GetAllUsers();
-
-//echo'<pre>';print_r($SubCategories);die();
-
-$datum = date("F j, Y, h:i a");
-
-if (isset($_POST['submit_insert'])) {
-
-  $artikelinfo = new ArticleInfo();
-  
-  $artikelinfo->setContactId($_POST['Authors']);
-  $artikelinfo->setTitle($_POST['title']);
-  $artikelinfo->setArticle($_POST['article']);
-  $artikelinfo->setDatum($datum);
-  $artikelinfo->setSubcategoryId($_POST['subCategory']);
-
-
-  //image loading
-    $filename = basename($_FILES["image"]["name"]);
-    $filetype = $_FILES['image']['type'];
-    $filetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
-    
-    $imagee = move_uploaded_file($filetmp, "images/$filename");
-
-    $artikelinfo->setImagee($filename);
-
-  $insert = $articledb->InsertNewArtikel($artikelinfo);
-
-    header('location: ../index.php');
-
-}
-
-
-require '../header.php';
+require_once(ROOT_PATH . '/header.php');
 ?>
 
 
 <div class="container" style='width:50%; margin-top:95px'>
-<h1>Artikal Einfügen</h1><br /><br />
+<h1>Add New Article</h1><br /><br />
+    <?php  foreach($errors as $error){ ?>
+        <p class="text-danger"><?= $error ?></p>
+    <?php } ?>
 
   <form method="post" action='insertArticle.php' enctype="multipart/form-data">
     <div class="form-group">
@@ -79,7 +37,10 @@ require '../header.php';
       <label for="Name">Title</label>
       <input type="text" class="form-control inputstl" name='title'>
     </div>
-
+    <div class="form-group">
+      <label for="Name">Price</label>
+         <input type="number" name="price" step="0.01" placeholder="Price" min="0" maxlength="100000000" class="form-control col-4" required/><br>
+    </div>
         <!---Categories-->
         <div class="form-group">
         <label >Select Category</label>
@@ -124,7 +85,7 @@ require '../header.php';
 
     <div class="form-group">
       <input type="submit" name= 'submit_insert' class="btn btn-primary" value='Submit Insert'>
-      <a class='btn  btn-secondary' href='http://localhost:8888/kontakte_verwalten/index.php'><i class='fa fa-arrow-left' ></i> Zurück</a>
+      <a class='btn  btn-secondary' href='#' onclick="goBack()"><i class='fa fa-arrow-left' ></i> Zurück</a>
     </div>
 
   </form>

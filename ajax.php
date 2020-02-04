@@ -72,14 +72,35 @@ $PageCount = ceil($total/$PageSize);
             <div class="card-body">
                 <h6 class="card-title text-center"><?= $Product->getTitle();  ?></h6>
 
-                <p class="card-text mt-2 text-center">
-                    <small class="text-muted"><?= $Product->getArticle();  ?></small> 
-                </p>
+                <div  class="card-text mt-2 text-center"  style="height:35px">
+                    <small class="text-muted">
+                        <?php echo substr($Product->getArticle() ,0 ,75);?>
+                        <?php if(strlen($Product->getArticle()) > 75){?>
+                        <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">...</a>
+                        <?php } ?>
+                    </small> 
+                </div>
+                <div class="mt-2">
+                    <small>
+                        <span>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-muted"></i>
+                            <i class="fa fa-star text-muted"></i>
+                        </span>
+                    </small> 
+                </div>
 
-                <p class="card-text mt-2 text-right ">
-                    <?= $Product->getPrice(); ?> €  Pay
-                </p>
-                
+                <span class="mb-2">
+                    <?= $Product->getPrice(); ?> € 
+                </span>
+                <div align="right" class="mb-2">
+                    <a id="addButtonBlock" class="btn btn-success btn-sm" style="margin-top:-25px; font-size:9px"
+                                    onclick="addToCart(<?= $Product->getId() . "," . $Product->getPrice() ?>)" >
+                            <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd
+                        </a>
+                    </div>
             </div>
         </div>
 

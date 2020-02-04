@@ -1,59 +1,6 @@
 <?php
 require '../include.php';
-if(!isset($_SESSION['user']) )
-{	// not logged in
-    header('Location: '.BASE_URL.'index.php');
-    die();
-}
-$edit ='';
-$id = $_GET['id'];
-$articledb = ArticleDb::getInstance();
-$article = $articledb->GetByid($id);
-
-$UsersDb = RegisterRepository::getInstance();
-$Users = $UsersDb->GetAllUsers();
-
-
-$CategoryDb = CategoriesDb::getInstance();
-$categories = $CategoryDb->getAllCategories();
-
-$SubCategoryDb = SubCategoriesDb::getInstance();
-$SubCategories = $SubCategoryDb->getAllSubCategories();
-
-
-$datum_update = date("F j, Y, h:i a");
-
-
-
-if (isset($_POST['submit_update'])) {
-
-    $article->setContactId($_POST['Authors']);
-    $article->setTitle($_POST['title']);
-    $article->setArticle($_POST['article']);
-    $article->setUpdatedatum($datum_update);
-    $article->setSubcategoryId($_POST['subCategory']);
-    
-
-
-  //image loading
-  $uploads_dir = 'C:\xampp\htdocs\xampp\test\20.11.2019 Produkts\kontakte_verwalten/view/images';
-
-  $filename = basename($_FILES["image"]["name"]);
-  $filetype = $_FILES['image']['type'];
-  $filetmp= $_FILES['image']['tmp_name'];
-  //$filetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
-
-  $imagee = move_uploaded_file($filetmp, "$uploads_dir/$filename");
-
-  //echo $imagee;die;
-  $article->setImagee($filename);
-
-
-  $edit = $articledb->editArticle($article);
-
-    header('Location: ../index.php');
-
-}
+require_once(ROOT_PATH . '/controlle/edit_article_controller.php');
 
 require '../header.php';
 ?>
@@ -61,6 +8,9 @@ require '../header.php';
 
 <div class="container" style='width:50%; margin-top:100px'><br />
     <h2>Article Update</h2><br />
+    <?php  foreach($errors as $error){ ?>
+        <p class="text-danger"><?= $error ?></p>
+    <?php } ?>
 
         <form method="post" action='EditArticle.php?id=<?= $id; ?>' enctype="multipart/form-data">
 
@@ -88,6 +38,10 @@ require '../header.php';
         <div class="form-group">
           <label for="Name"><b>Title</b></label>
           <input type="name" class="form-control inputstl" name='title' value="<?= $article->getTitle()  ?>">
+        </div>    
+        <div class="form-group">
+          <label for="Name">Price</label>
+            <input type="number" name="price" step="0.01" placeholder="Price" min="0" maxlength="100000000" class="form-control col-4" required/><br>
         </div>
 
         <!---Categories-->
@@ -129,7 +83,7 @@ require '../header.php';
             
             <div  align="center" class="mb-4 mt-4">
               <input type="submit" name='submit_update' class="btn btn-info" value='Submit Update'>
-              <a class='btn  btn-danger' href="<?php echo BASE_URL . 'index.php' ?>"><i class='fa fa-arrow-left' ></i> Zurück</a>
+              <a class='btn  btn-danger' href="#" onclick="goBack()"><i class='fa fa-arrow-left' ></i> Zurück</a>
             </div>
         </form>
 </div>

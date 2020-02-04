@@ -18,7 +18,7 @@ class ArticleDb
 
     const Get_ByID              = "SELECT * FROM products_tb WHERE id = ?";
 
-    const SQL_INSERT            = "INSERT INTO products_tb (contact_id, title ,imagee,  article, datum, subcategory_id) VALUES (?, ?, ?, ?, ?, ?)";
+    const SQL_INSERT            = "INSERT INTO products_tb (contact_id, title, price, imagee, article, datum, subcategory_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     const SQL_MATCHING_VALUES   = "SELECT * FROM users
                                         INNER JOIN products_tb
@@ -39,7 +39,7 @@ class ArticleDb
     
     const Get_Artikel_ByID      = "SELECT * FROM products_tb WHERE id = ?";
     
-    const SQL_UPDATE            = "UPDATE products_tb set contact_id = ?, title = ?, imagee = ?, article = ?, update_datum = ?, subcategory_id=? WHERE id = ?";
+    const SQL_UPDATE            = "UPDATE products_tb set contact_id = ?, title = ?, price = ?, imagee = ?, article = ?, update_datum = ?, subcategory_id=? WHERE id = ?";
 
     const SQL_DELETE            = "DELETE FROM products_tb WHERE id = ?";
 
@@ -100,7 +100,7 @@ class ArticleDb
 
     //20,11
 
-    function GetProductsWithSubcat($page=1, $PageSize=100, $subcid='')
+    function GetProductsWithSubcat($page=1, $PageSize, $subcid='')
     {
             $sql = self::GET_All_PRODUCTS;
             $params = array();
@@ -154,6 +154,7 @@ class ArticleDb
         $statement->execute(array(
             $artikelinfo->getContactId(),
             $artikelinfo->getTitle(),
+            $artikelinfo->getPrice(),
             $artikelinfo->getImagee(),
             $artikelinfo->getArticle(),
             $artikelinfo->getDatum(),
@@ -223,6 +224,7 @@ class ArticleDb
         $statement->execute(array(
             $artikelinfo->getContactId(),
             $artikelinfo->getTitle(),
+            $artikelinfo->getPrice(),
             $artikelinfo->getImagee(),
             $artikelinfo->getArticle(),
             $artikelinfo->getUpdatedatum(),

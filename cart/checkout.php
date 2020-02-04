@@ -1,5 +1,20 @@
 <?php
 require '../include.php';
+if(!isset($_SESSION['user']) )
+{	// not logged in
+    echo "
+    <script>
+        if (window.confirm('You must login or register first. If you click OK you would be redirected to Login Page. Cancel will load Home website ')) 
+        {
+        window.location.href='http://localhost/xampp/2020/20.11.2019%20Produkts/kontakte_verwalten/registration/login.php';
+        }else{
+            window.location.href='http://localhost/xampp/2020/20.11.2019%20Produkts/kontakte_verwalten/index.php';
+        };
+    </script>";
+
+    header('Refresh:0; '.BASE_URL.'registration/login.php'); 
+    die();
+}
 
 include(ROOT_PATH . '/header.php') ;
 ?>

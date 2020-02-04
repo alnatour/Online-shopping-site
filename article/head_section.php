@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/index_css.css'?>">
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/artikel.css'?>">
+    <link rel="stylesheet" href="../view/css/index_css.css">
+    <link rel="stylesheet" href="../view/css/artikel.css">
     
     <!-- <link rel="stylesheet" href="view/css/footer.css">-->
 
@@ -82,18 +82,17 @@
 
 
 
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/cart.css'?>">
+    <link rel="stylesheet" href="../view/css/cart.css">
           <!-- Script for adding product to favourites -->
-    <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/favourites.js'?>"></script>
+    <script type="text/javascript" src="../view/js/favourites.js"></script>
     <!-- Cart JS -->
-    <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/add.cart.js'?>"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/add.cart.js'?>"></script>
+    <script type="text/javascript" src="../view/js/cartOnePage/add.cart.js"></script>
     <!-- Cart Hover JS -->
-    <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/cart.hover.js'?>"></script>
+    <script type="text/javascript" src="../view/js/cartOnePage/cart.hover.js"></script>
 
-    <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/remove.cart.js'?>"></script>
+    <script type="text/javascript" src="../view/js/cartOnePage/remove.cart.js"></script>
     <!-- Script for controlling cart quantity -->
-    <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/quantity.cart.js'?>"></script>
+    <script type="text/javascript" src="../view/js/cartOnePage/quantity.cart.js"></script>
 
     <style>
       body{

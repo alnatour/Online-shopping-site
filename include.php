@@ -23,6 +23,10 @@ require 'model/RegisterService.php';
 
 require 'contact_with_us/contactform.php';
 
+//Cart
+require 'model/CartProduct.php';
+require 'model/FavouritesDao.php';
+require 'model/Favourites.php';
 
 
 

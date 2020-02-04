@@ -34,7 +34,7 @@ require '../header.php';
 
     <form method="post" action='delete.php?id=<?=$id;?>' class='mt-4'>
         <input  type="submit" class="btn btn-primary" name="submit_delete" value="Delete" />
-        <a class='btn  btn-danger' href='../index.php'>Cancel</a>
+        <a class='btn  btn-danger' href='../index.php' onclick="goBack()">Cancel</a>
     </form>
     <br /> <br />
 </div>
