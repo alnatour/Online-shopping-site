@@ -10,9 +10,7 @@
     <!-- <link rel="stylesheet" href="view/css/footer.css">-->
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
--->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -32,8 +30,6 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
 
@@ -94,8 +90,9 @@
     <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/remove.cart.js'?>"></script>
     <!-- Script for controlling cart quantity -->
     <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/quantity.cart.js'?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <style>    
 
-    <style>
       body{
         font-family: "Museo Sans W01_300",Times,sans-serif;
         font-size: 16px;
@@ -199,6 +196,25 @@
         }
         .content .menu .card .card-content a:hover {
           padding-left: 20px; background: #ccc; transition: 0.1s;
+        }
+        .menu {
+          background-color:#33b5e5 !important;
+          height: 80px;
+          padding-top: 15px;
+          
+        }
+        .text-cart, #cartTotalPrice, #cartItems{
+          color: white!important;
+        }
+        .sticky {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          z-index:1;
+        }
+
+        .sticky{
+          padding-top: 80px;
         }
 
     </style>

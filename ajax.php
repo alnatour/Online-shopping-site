@@ -65,7 +65,7 @@ $PageCount = ceil($total/$PageSize);
     foreach ($Products as $Product) { ?>
 
 
-        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:380px;float:left;background-color:#ffffff!important;">
+        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:410px;float:left;background-color:#ffffff!important;">
             <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
                 <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product->getImagee(); ?>" alt="">
             </a>

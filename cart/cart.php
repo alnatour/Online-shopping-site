@@ -12,51 +12,19 @@ include(ROOT_PATH . '/header.php') ;
 </style>
 <br><br><br><br><br><br><br>
 
-            <!-- Favourites button -->
-            <div class="header_right" style="float: right;margin-top: 1em;position: relative;">
-                <?php if (isset($_SESSION['user'])) { ?>
-                    <a href="../main/favourites.php">
-                        <button class="btn btn-primary btn-info" id='favouritesButton'><span
-                                    class="glyphicon glyphicon-heart"></span> Favourites
-                        </button>
-                    </a>
-                <?php } else { ?>
-                    <div class="btn btn-primary btn-info" id='invisible' style="display: inline-block;background: transparent!important;border: none !important;
-                                                                                font-size: 0;width: 100px;height: 40px;">
-                        <span class="glyphicon glyphicon-heart"></span>
-                    </div>
-                <?php } ?>
 
-                <!-- Cart page button -->
-                <div id="cartToHover" class="cart box_1" style="height:60px;">
-                    <a href="cart.php">
-                        <div class="total" style="display: inline-block;vertical-align: middle; color: #18C9D2;">$
-                            <div id="cartTotalPrice" style="display: inline;"><?= $cartTotalPrice ?></div>
-                            <br>
-                            (<div id="cartItems" style="display: inline;"><?= $cartItems ?></div> items )
-                        </div>
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
-
-                    <div class="clearfix"></div>
-                </div>
-                <div id="cartDivHover" style="margin-top:-27px;margin-left:-30px;"></div>
-            </div>
-            <div class="clearfix"></div>
-            
-            <br><br><br><br><br><br><br>
-
-            
+<div id="cartItems" style="display:none"><?= $cartItems ?></div>
+<div id="cartTotalPrice" style="display: inline;"> <?= $cartTotalPrice ?></div>
 
 <div class="container">
     <div class="row mx-auto">
-        <div class="" id="content">
-            <table class="table table-dark " cellspacing="0" cellpadding="5">
+        <div class=" col-12" id="content">
+            <table class="table table-hover" cellspacing="0" cellpadding="5" style="border-radius:20px;border:1px solid #ccc">
                 <tbody>
                     <tr bgcolor="#CCCCCC">
                         <th width="220" align="left">Image </th> 
                         <th width="130" align="left">Description </th> 
-                             <th width="100" align="center">Quantity </th> 
+                        <th width="250" align="center">Quantity </th> 
                         <th width="150" align="right">Price per piece</th> 
                         <th width="60" align="right">Total </th> 
                         <th width="130">Total Price</th>
@@ -65,10 +33,10 @@ include(ROOT_PATH . '/header.php') ;
                     <?php foreach ($cart as $cartProduct) { 
                       //  echo "<pre>";print_r($cartProduct->getImage());die;
                         ?>
-                    <tr>
+                    <tr id="product-<?= $cartProduct->getId() ?>">
                         <td>
                             <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $cartProduct->getId(); ?>">
-                                <img src="<?php echo BASE_URL . 'view/images/'?><?= $cartProduct->getImage() ?>" alt="<?= $cartProduct->getTitle() ?>" width="150"></td>
+                                <img src="<?php echo BASE_URL . 'view/images/'?><?= $cartProduct->getImage() ?>" alt="<?= $cartProduct->getTitle() ?>" width="180"></td>
                             </a> 
                         <td> <?= $cartProduct->getTitle() ?></td> 
                         <td align="center">             
@@ -122,8 +90,9 @@ include(ROOT_PATH . '/header.php') ;
                         </td>
                         <td>
                             <div id="cartTotalPrice2">
-                                 <?= number_format($cartTotalPrice ,2, '.','2') ?> €
+                                    <?= number_format($cartTotalPrice ,2, '.','2') ?>
                             </div>
+                                  €
                         </td>
                     </tr>
                 </tbody>

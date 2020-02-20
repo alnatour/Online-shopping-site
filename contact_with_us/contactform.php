@@ -42,10 +42,11 @@ if (isset($_POST['submit_contact'])) {
         </head>
         <body>
         <p>This email contains Info about Contact $firstname!</p>
-        <table style='width:100%; '>
+        <table style='width:100%; background-color:#eee; font-size:16px'>
             <tr>
+                <td width:20px;><td>
                 <td>
-                    <table  width='600' align='center' style='background-color:#c7bfbf; font-size:16px'>
+                    <table  width='600' align='center'>
                         <tr>
                             <td>
                                 Firstname:
@@ -78,6 +79,7 @@ if (isset($_POST['submit_contact'])) {
                         </tr>
                     </table>
                 </td>
+                <td width:20px;><td>
             </tr>
         </table>
         </body>
@@ -86,6 +88,7 @@ if (isset($_POST['submit_contact'])) {
 
         $mail->send();
         echo 'Message has been sent';
+        header('Refresh:3; ../index.php');
 
     } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

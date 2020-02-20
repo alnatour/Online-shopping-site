@@ -7,6 +7,8 @@ date_default_timezone_set('Europe/Vienna');
 
 
 require 'model/ContactDB.php';
+require_once('controlle/SessionManagement.php'); 
+
 require 'model/Contact.php';
 require 'model/ContactService.php';
 require 'model/ArticleDb.php';

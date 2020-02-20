@@ -9,7 +9,7 @@ if(!isset($_SESSION['user']) )
 $articledb = ArticleDb::getInstance();
 $artikelinfo = new ArticleInfo();
 
-(isset($_SESSION['PageSize'])) ? $PageSize = $_SESSION['PageSize'] : $PageSize=4;
+(isset($_SESSION['PageSize'])) ? $PageSize = $_SESSION['PageSize'] : $PageSize=10;
 
 (!isset($_GET['page'])) ?$page = 1 : $page =$_GET['page'];
 $search='';
@@ -87,7 +87,7 @@ $PageCount = ceil($total/$PageSize);
 
 		<!-- Left side menu -->
 		
-		<div class="menu col-4">
+		<div class="menu col-3">
 			<div class="card">
 				<div class="card-header">
 					<h2>Actions</h2>
@@ -104,7 +104,7 @@ $PageCount = ceil($total/$PageSize);
 
 
 		<!-- Display records from DB-->
-		<div class="table-div col-8 table-hover"  style="width: 100%;">
+		<div class="table-div col-9 table-hover"  style="width: 100%;">
 			<!-- Display notification message -->
 			<?php include('messages.php') ?>
 

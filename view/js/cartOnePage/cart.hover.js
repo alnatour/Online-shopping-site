@@ -15,9 +15,9 @@ $(document).ready(function () {
                     var div = document.createElement('div');
                     container.appendChild(div);
 
-                    div.innerHTML = "<a href=\"article/view_one_artikel.php?id=" + products[product]['id'] + "\">" +
+                    div.innerHTML = "<a href=\"view_one_artikel.php?id=" + products[product]['id'] + "\">" +
                         "<div class='search-result'>" + "<img class='search-result-img'" +
-                        " src=view/images/" + products[product]['image_url'] + "><p class='search-result-p'>"
+                        " src=../view/images/" + products[product]['image_url'] + "><p class='search-result-p'>"
                         + products[product]['title'] + "<br/>" + "$" + products[product]['price'] +
                         "<br/>" + "Quantity: " + products[product]['quantity'] + "</p></div></a>"
 
@@ -25,7 +25,7 @@ $(document).ready(function () {
 
             }
         };
-        xhttp.open("GET", "controlle/cart/on_hover_cart.php", true);
+        xhttp.open("GET", "../controlle/cart/on_hover_cart.php", true);
         xhttp.send();
     });
 });

@@ -6,7 +6,7 @@ require 'header.php';
 
 
 <div class ="smooth">
-    <div class="parallax-artikel"  style="margin-top:66px">
+    <div class="parallax-artikel"  style="margin-top:50px">
         <br><br><br><br><br><br>
         <!---Logo---->
         <div class="col-4 text-center mx-auto" style="background-color:#ccc !important">
@@ -45,41 +45,43 @@ require 'header.php';
     </div>
 </div>
 
-
+<div class="container-fluid" style="background-color:#eee">
     <!-- Cart button -->
-<div class="container-fluid">
-    <div class="header_right col-2" style="float: right;margin-top: 1em;position: relative;">
+    <div  class="row justify-content-end mb-4" id="Cart-button" >
+        <div class="header_right " style="margin-top: 1em;position: relative;width:180px">
 
-        <!-- Cart page button -->
-        <div id="cartToHover" class="cart box_1" style="height:60px;">
-            <a href="cart/cart.php">
-                <div class="total" style="display: inline-block;vertical-align: middle; color: #18C9D2;">$
-                    <div id="cartTotalPrice" style="display: inline;"><?= $cartTotalPrice ?></div>
-                    <br>
-                    (<div id="cartItems" style="display: inline;"><?= $cartItems ?></div> items )
+            <!-- Cart page button -->
+            <div id="cartToHover" class="cart box_1" style="height:70px;">
+                <div class="menu bg-white" style="border-radius:10px;padding-left:40px;">
+                    <a href="cart/cart.php"  class="text-cart">
+                        <div class="total" style="display: inline-block;vertical-align: middle;">€
+                            <div id="cartTotalPrice" style="display: inline;"> <?= $cartTotalPrice ?></div>
+                            <br>
+                            (<div id="cartItems" style="display: inline;"><?= $cartItems ?></div>)items 
+                        </div>
+                        <i class="fas fa-shopping-cart" style="font-size:35px"></i>
+                    </a>
                 </div>
-                <i class="fas fa-shopping-cart"></i>
-            </a>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
+            </div>
+            <div id="cartDivHover" style="margin-top:-27px;margin-left:-30px;"></div>
         </div>
-        <div id="cartDivHover" style="margin-top:-27px;margin-left:-30px;"></div>
+        <div class="clearfix"></div>
     </div>
-    <div class="clearfix"></div>
-</div>
-            
+                
 
-<!---Filter---->
-<br>
-<div class="container-fluid">
-    <select id="PageSize" name="PageSize"  class="form-control form-control-sm " style="width:100px;float:right">
-    <option <?php if ($PageSize == 4 ) echo 'selected' ; ?> value="4">4</option>
-    <option <?php if ($PageSize == 8 ) echo 'selected' ; ?> value="8">8</option>
-    <option <?php if ($PageSize == 16 ) echo 'selected' ; ?> value="16">16</option>
-    </select>
+    <!---Filter---->
+    <br>
+    <div>
+        <select id="PageSize" name="PageSize"  class="form-control form-control-sm " style="width:100px;float:right">
+        <option <?php if ($PageSize == 4 ) echo 'selected' ; ?> value="4">4</option>
+        <option <?php if ($PageSize == 8 ) echo 'selected' ; ?> value="8">8</option>
+        <option <?php if ($PageSize == 16 ) echo 'selected' ; ?> value="16">16</option>
+        </select>
+    </div>
+    <br><br>
 </div>
-
-<br><br>
 <!---1---->
 
 
@@ -227,6 +229,19 @@ require 'header.php';
 <?php include(ROOT_PATH . '/pages.php') ?>
 
 <br><br><br>
+<script>
+window.onscroll = function() {myFunction()};
 
+var navbar = document.getElementById("Cart-button");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 <?php include(ROOT_PATH . '/footer.php') ?>
 

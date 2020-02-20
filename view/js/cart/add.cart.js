@@ -15,6 +15,7 @@ function addToCart(productId, productPrice) {
 
     xhttp.open("GET", "controlle/cart/add_to_cart_controller.php?pid=" + productId + "&pqty=" + 1, true);
     xhttp.send();
+    alert('The item was added to Cart');
 }
 
 function addToCartSingle(productId, productPrice) {
