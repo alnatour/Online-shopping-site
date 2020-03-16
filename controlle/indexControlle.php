@@ -1,6 +1,9 @@
 <?php
 require_once (ROOT_PATH . "/controlle/cart/cart_navi_controller.php");
 
+$search='';
+$data = false;
+
 $articledb = ArticleDb::getInstance();
 $artikelinfo = new ArticleInfo();
 /* Get all Categories */
@@ -48,9 +51,22 @@ if(isset($_GET['subcid']))
 }
 /** end Categories */
 
+if (isset($_POST['submit_search'])) {
+    $search = trim($_POST['search']);
+    $search = "%{$search}%";
+    $Products = $articledb->GetProductsWithSearch($page, $PageSize, $search);
+   // echo'<pre>';print_r($Products);die;
+    $total = count($Products);
 
+    if (empty($Products)){
+        $feedback = ' nichts gefunden';
+    }
+}
 
 $PageCount = ceil($total/$PageSize);
+
+
+
 
 
 ?>

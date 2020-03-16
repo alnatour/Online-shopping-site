@@ -1,0 +1,127 @@
+
+body{
+  font-family: "Museo Sans W01_300",Times,sans-serif;
+  font-size: 16px;
+}
+
+
+.parallax-contact {
+  /* The image used */
+  background-image: url("https://marketpeima.com/wp-content/uploads/%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%DB%8C%D8%A7%D8%A8%DB%8C-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-1.jpg");
+  /* Set a specific height */
+  min-height: 400px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-artikel {
+  /* The image used */
+  background-image: url("https://marketpeima.com/wp-content/uploads/%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%DB%8C%D8%A7%D8%A8%DB%8C-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-1.jpg");
+  /* Set a specific height */
+  min-height: 300px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 1020px)  {
+	  .hidden{
+		display:none;
+	  }
+	}
+@media only screen and (max-width: 451px)  {
+  .cart-responsive{
+	width:90%!important;
+	margin-left:5% !important;
+	margin-top:5px !important;
+  }
+}
+
+.remove{
+  display:none;
+}
+#pagination{
+  float:left;
+}
+.page-active{
+  background-color: #4285f4;
+  border-radius :5px;
+}
+.inner {
+  min-width : 850px;
+  margin: auto;
+  padding-top: 68px;
+  padding-bottom: 48px;
+  background: url("https://www.utshockey.org/wp-content/uploads/2015/11/RegisterNow_small.jpg"); 
+}
+.inner h3 {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-family: "Muli-Bold";
+  text-align: center;
+  margin-bottom: 32px;
+  color: #333;
+  letter-spacing: 2px; }
+  
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.card{
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: auto;
+  background-color:#ffffff!important;
+}
+.support{
+  float:right
+}
+
+.nav-item a{
+  color:#000!important;
+}
+
+.nav-link .active {
+  background-color: #4285f4!important;
+}
+.hover-navbar a:hover  {
+  color:#000!important;
+  border-radius :5px;
+  margin-left:10px;
+  padding-left: 5px; background: #ccc; transition: 0.3s;
+	  }
+
+.content .menu .card .card-content a {
+	display: block;
+	box-sizing: border-box;
+	padding: 8px 10px;
+	border-bottom: 1px solid #e4e1e1;
+	color: #444;
+  }
+  .content .menu .card .card-content a:hover {
+	padding-left: 20px; background: #ccc; transition: 0.3s;
+  }
+  .menu {
+	background-color:#33b5e5 !important;
+	height: 80px;
+	padding-top: 15px;
+	
+  }
+  .text-cart, #cartItems{
+	color: white!important;
+  }
+  .sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index:1;
+  }
+
+  .sticky{
+	padding-top: 80px;
+  }

@@ -6,9 +6,42 @@ require_once (ROOT_PATH . '/controlle/cart/show_cart_controller.php');
 include(ROOT_PATH . '/header.php') ;
 ?>
 <style>
- td,th{
-    font-size:18px!important;
-}
+
+    .img-fluid{
+        min-width: 100px!important;
+    }
+    .input-group-text a{
+        cursor: pointer;
+    }
+    .fa-minus, .fa-plus{
+        color: #eee;
+        text-decoration: none;
+    }
+    .fa-minus:hover, .fa-plus:hover{
+        color: #fff;
+    }
+
+    #quantityText{
+        min-width: 42.63px!important;
+    }
+    .proceed-btn {
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffffff;
+        background: #252525;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+    }
+    .continue-shop {
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffffff;
+        background-color:#117a8b;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+    }
 </style>
 <br><br><br><br><br><br><br>
 
@@ -19,95 +52,113 @@ include(ROOT_PATH . '/header.php') ;
 <div class="container">
     <div class="row mx-auto">
         <div class=" col-12" id="content">
-            <table class="table table-hover" cellspacing="0" cellpadding="5" style="border-radius:20px;border:1px solid #ccc">
-                <tbody>
+            <table class="table table-hover">
+                <thead>
                     <tr bgcolor="#CCCCCC">
-                        <th width="220" align="left">Image </th> 
-                        <th width="130" align="left">Description </th> 
-                        <th width="250" align="center">Quantity </th> 
-                        <th width="150" align="right">Price per piece</th> 
-                        <th width="60" align="right">Total </th> 
-                        <th width="130">Total Price</th>
-                        
+                        <th scope="col">Image </th> 
+                        <th scope="col">Description </th> 
+                        <th scope="col">Quantity </th> 
+                        <th scope="col">Price per piece</th> 
+                        <th scope="col">Total </th> 
                     </tr>
-                    <?php foreach ($cart as $cartProduct) { 
-                      //  echo "<pre>";print_r($cartProduct->getImage());die;
-                        ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($cart as $cartProduct) { ?>
                     <tr id="product-<?= $cartProduct->getId() ?>">
-                        <td>
+                        <td width="180">
                             <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $cartProduct->getId(); ?>">
-                                <img src="<?php echo BASE_URL . 'view/images/'?><?= $cartProduct->getImage() ?>" alt="<?= $cartProduct->getTitle() ?>" width="180"></td>
+                                <img src="<?php echo BASE_URL . 'view/images/'?><?= $cartProduct->getImage() ?>" alt="<?= $cartProduct->getTitle() ?>" class="img-fluid" >
                             </a> 
-                        <td> <?= $cartProduct->getTitle() ?></td> 
-                        <td align="center">             
-                            <div id="quantityText">Quantity:
-                                <span id="quantityNumber">
-                                    <span id="product-<?= $cartProduct->getId() ?>-quantity">
-                                        <?= $cartProduct->getQuantity() ?>
-                                    </span>
-                                    <span id="Quantity-<?= $cartProduct->getQuantity() ?>">
-
-                                    </span>
-                                </span>
-                            </div>
-                            <button class="btn btn-xs btn-danger"
-                                            onclick="removeOneQuantityFromCart
-                                            (<?= $cartProduct->getId()
-                                    . "," . $cartProduct->getPrice() ?>)"><i class="fas fa-minus"></i>
-                            </button>
-                            <button class="btn btn-xs btn-success"
-                                        onclick="addOneQuantityToCart
-                                        (<?= $cartProduct->getId()
-                                . "," . $cartProduct->getPrice() ?>)"><i class="fas fa-plus"></i>
-                            </button>
                         </td>
-                        <td align="right">
+                        <td>
+                            <?= $cartProduct->getTitle() ?>
+                        </td> 
+                        <td>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" style="background-color:#dc3545;color:#fff">
+                                        <a onclick='removeOneQuantityFromCart(<?= $cartProduct->getId()
+                                            . "," . $cartProduct->getPrice() ?>)'><i class="fas fa-minus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="quantityText">
+                                    <span id="quantityNumber" class="form-control">
+                                        <span id="product-<?= $cartProduct->getId() ?>-quantity">
+                                            <?= $cartProduct->getQuantity() ?>
+                                        </span>
+                                        <span id="Quantity-<?= $cartProduct->getQuantity() ?>">
+
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"  style="background-color:#1e7e34;color:#fff">
+                                        <a onclick='addOneQuantityToCart
+                                                (<?= $cartProduct->getId()
+                                        . "," . $cartProduct->getPrice() ?>)'><i class="fas fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
                             <span id="PriceOne-<?= $cartProduct->getPrice() ?>">
                                 <?= $cartProduct->getPrice() ?> 
                             </span>
-                        </td> 
-                                
-                        <td align="right">
+                        </td>     
+                        <td>
                             <span  id="product-<?= $cartProduct->getId() ?>-totalPrice">
                                 <?= $cartProduct->getPrice() * $cartProduct->getQuantity() ?>
                             </span>
                         </td>
-                        
                     </tr>
-      
                     <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+
+    <div class="row">
+        <div class="col-lg-4 offset-lg-8">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>Total Price for all </td>
-                        <td></td>
-                        <td></td>
+                        <th colspan="2">
+                            Number of Items 
+                        </th>
+                        <th>
+                            (<div id="cartItems2"><?= $cartItems ?></div>)
+                        </th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+                    <tr class="table-dark" style="border-bottom: 1px solid #ffffff;">
+                        <th colspan="2">Total</th>
                         <td>
-                            <small>Number of Items 
-                                 <div id="cartItems2"><?= $cartItems ?></div>
-                            </small> 
+                            <div id="cartTotalPrice2" class="text-white">
+                                <?= number_format($cartTotalPrice ,2, '.','2') ?>
+                            </div><span class="text-white"> $</span>
                         </td>
-                        <td>
-                        </td>
-                        <td>
-                            <div id="cartTotalPrice2">
-                                    <?= number_format($cartTotalPrice ,2, '.','2') ?>
-                            </div>
-                                  €
-                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th colspan="3" style="background-color:#000">
+                            <a href="checkout.php" class="proceed-btn">Proceed to Checkout</a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3" style="background-color:#117a8b">
+                            <a href="javascript:history.back()" class="continue-shop" >Continue Shopping</a>
+                        </th>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <div align="center"  style=" margin-top: 20px;">
-        <div  class="checkout">
-            <a href="checkout.php" class="more btn btn-info" >Proceed to Checkout</a>
-        </div>
-        <div class="continueshopping ">
-            <a href="javascript:history.back()" class="more btn btn-success" >Continue Shopping</a>
-        </div>
-    </div>
-
-
 </div>
+
+<?php include(ROOT_PATH . '/footer.php') ?>

@@ -1,0 +1,42 @@
+
+/*---------------------
+  logo
+-----------------------*/
+.logo {
+  padding: 12px 0;
+  float: left;
+}
+.logo a {
+	display: inline-block;
+}
+
+/*---------------------
+  search
+-----------------------*/
+.advanced-search{
+	margin-top: 50px;
+}
+.category-btn {
+	float: left;
+	color: #252525;
+	padding-left: 23px;
+	padding-top: 11px;
+}
+
+.input-group{
+	float: left;
+	border: none;
+	font-size: 16px;
+	color: #d1d1d1;
+	padding-left: 23px;
+	padding-top: 11px;
+	padding-bottom: 13px;
+	padding-right: 60px;
+}
+
+
+/*---------------------
+  Shopping Cart
+-----------------------*/
+
+

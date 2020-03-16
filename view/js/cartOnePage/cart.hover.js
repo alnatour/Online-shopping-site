@@ -15,11 +15,9 @@ $(document).ready(function () {
                     var div = document.createElement('div');
                     container.appendChild(div);
 
-                    div.innerHTML = "<a href=\"view_one_artikel.php?id=" + products[product]['id'] + "\">" +
-                        "<div class='search-result'>" + "<img class='search-result-img'" +
-                        " src=../view/images/" + products[product]['image_url'] + "><p class='search-result-p'>"
-                        + products[product]['title'] + "<br/>" + "$" + products[product]['price'] +
-                        "<br/>" + "Quantity: " + products[product]['quantity'] + "</p></div></a>"
+                    div.innerHTML = "<table class='cart-table'><tbody><tr style='border-bottom:1px solid #000'><td class='si-pic'><a href=\"article/view_one_artikel.php?id=" + products[product]['id'] + "\"><img src='../view/images/" 
+                    + products[product]['image_url'] +"'  width='70' ></a></td><td class='si-text'><div class='product-selected'><p> $ " + products[product]['price'] + " * <span id='product-"+products[product]['quantity']+"-quantity'> " + products[product]['quantity'] + "</span></p><h6>"+ products[product]['title'] +
+                    "</h6></div></td></tr></tbody></table>"
 
                 }
 

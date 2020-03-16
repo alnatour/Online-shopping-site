@@ -25,7 +25,7 @@ require 'header.php';
 
         <!---Categori---->
         <nav class="navbar navbar-expand-lg navbar-light bg-light ml-4 mr-4 mt-4 hover-navbar" style="background-color:#fff !important;">
-            <a class="navbar-brand" href="index.php">All Articles</a>
+            <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">All Articles</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,33 +44,60 @@ require 'header.php';
         </nav>
     </div>
 </div>
-
-<div class="container-fluid" style="background-color:#eee">
-    <!-- Cart button -->
-    <div  class="row justify-content-end mb-4" id="Cart-button" >
-        <div class="header_right " style="margin-top: 1em;position: relative;width:180px">
-
-            <!-- Cart page button -->
-            <div id="cartToHover" class="cart box_1" style="height:70px;">
-                <div class="menu bg-white" style="border-radius:10px;padding-left:40px;">
-                    <a href="cart/cart.php"  class="text-cart">
-                        <div class="total" style="display: inline-block;vertical-align: middle;">€
-                            <div id="cartTotalPrice" style="display: inline;"> <?= $cartTotalPrice ?></div>
-                            <br>
-                            (<div id="cartItems" style="display: inline;"><?= $cartItems ?></div>)items 
-                        </div>
-                        <i class="fas fa-shopping-cart" style="font-size:35px"></i>
-                    </a>
-                </div>
-
-                <div class="clearfix"></div>
+<div class="container-fluid " >
+    <div  class="row">
+        <div class="col-lg-3 col-md-3">
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="public/img/logo-carousel/logo.png" alt="" width="100%">
+                </a>
             </div>
-            <div id="cartDivHover" style="margin-top:-27px;margin-left:-30px;"></div>
         </div>
-        <div class="clearfix"></div>
-    </div>
-                
+        <div class="col-lg-7 col-md-7 mt-4" style="margin-top:50px!important">
+                <form method="post" action="index.php">
+                    <div class="input-group mt-3">
+                        <input type="text" name="search" class="form-control col-8" placeholder="What do you need?" class="form-control" value="<?=$search;?>">
+                        <div class="input-group-prepend">
+                            <input type="submit" name="submit_search" value="Search" class="btn btn-outline-primary" />
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <!-- Cart page button -->
+        <div align="right" class="col-lg-2 col-md-2" style="margin-left:-70px!important">
+            <ul class="item">
+                <li style="list-style:none">
+                    <div align="right" id="cartToHover" class="box_1">
+                        <a href="cart/cart.php">
+                            <span id="cartItems" class="notify-badge"><?= $cartItems ?></span>
+                            <i class="fa fa-shopping-cart" style="font-size:30px;"></i>
+                        </a>
+                    </div>
+                    <div id="cartDivHover" class="cart-hover">
+                        
+                        <div id="cartDivHover2" class="cart-items"></div>
 
+                        <div class="cart-total mt-2" style='background-color:#fff'>
+                            <span>total:</span><span style="color: #e7ab3c;float: right;margin-left:10px"> $</span>
+                            <h5 id="cartTotalPrice"><?= $cartTotalPrice ?></h5>
+                            <br>
+                        </div>
+                        <div class="select-button" style='background-color:#fff'>
+                            <a href="<?php echo BASE_URL . 'cart/cart.php' ?>" class="btn btn-lg btn-dark">VIEW CARD</a>
+                            <a href="<?php echo BASE_URL . 'cart/checkout.php' ?>" class="btn btn-lg btn-info mt-2">CHECK OUT</a>
+                        </div>
+                    </div>
+                </li><span>$ </span>
+                <li class="cart-price"  id="cartTotalPrice2"><?= $cartTotalPrice ?></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid " style="background-color:#eee">
+    <!-- Cart button -->
+
+                
     <!---Filter---->
     <br>
     <div>
@@ -95,7 +122,7 @@ require 'header.php';
                     <p style="font-weight: bold" class="mt-3 text-center card-header">Sub Gategories </p>
                     <?php foreach ($subcategories as $subcategory) { ?>
                     <div class="card-content">
-                            <a href="index.php?subcid=<?= $subcategory->getId() ?>"  class="list-group-item list-group-item-action">
+                            <a href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategory->getId() ?>"  class="list-group-item list-group-item-action">
                                 <?= $subcategory->getName() ?>
                             </a>
                      </div>
@@ -112,7 +139,7 @@ require 'header.php';
                     <p style="font-weight: bold" class="mt-3 text-center card-header">Gategories </p>
                     <?php  foreach ($categories as $category) {?>
                         <div class="card-content">
-                            <a href="index.php?cid=<?= $category->getId() ?>"  >
+                            <a href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>"  >
                                 <?= $category->getName() ?>
                             </a>
                         </div>
@@ -127,8 +154,8 @@ require 'header.php';
                 //  echo '<pre>'; print_r($Product);die();
                 ?>
                         <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product['productId']; ?>">
-                            <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:410px;float:left;background-color:#ffffff!important;">
-                                <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product['imagee']; ?>" alt="">
+                            <div class="card mr-2 mb-2 cart-responsive article single-banner" style="width:260px;height:440px!important;float:left;background-color:#ffffff!important;">
+                                <img  class="img-fluid rounded mt-4 mb-4" src="<?php echo BASE_URL . 'view/images/'?><?= $Product['imagee']; ?>" alt="">
                             <div class="card-body">
 
                                 <h5 class="card-title text-center"><?= $Product['title'];  ?></h5>
@@ -175,13 +202,15 @@ require 'header.php';
                 foreach ($Products as $Product) {
                 // echo '<pre>'; print_r($Products);die();
                 ?>
-                    <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
-                        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:410px;float:left;background-color:#ffffff!important;">
-                                <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product->getImagee(); ?>" alt="">
-                            <div class="card-body">
+                    
+                    <div class="card mr-2 mb-2 cart-responsive article single-banner" style="width:240px;height:460px!important;float:left;background-color:#ffffff!important;">
+                        <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
+                            <img  class="img-fluid rounded mt-4 mb-4" src="<?php echo BASE_URL . 'view/images/'?><?= $Product->getImagee(); ?>" alt="">
+                        </a>
+                        <div class="card-body">
+                            <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
                                 <h5 class="card-title text-center"><?= $Product->getTitle();  ?></h5>
-                                
-                                <div  class="card-text mt-2 text-center"  style="height:35px">
+                                <div  class="card-text mt-2 text-center "  style="height:45px">
                                     <small class="text-muted">
                                         <?php echo substr($Product->getArticle() ,0 ,75);?>
                                         <?php if(strlen($Product->getArticle()) > 75){?>
@@ -189,32 +218,32 @@ require 'header.php';
                                         <?php } ?>
                                     </small> 
                                 </div>
-                                <div class="mt-2">
-                                    <small>
-                                        <span>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-warning"></i>
-                                            <i class="fa fa-star text-muted"></i>
-                                            <i class="fa fa-star text-muted"></i>
-                                        </span>
-                                    </small> 
-                                </div>
-
-                                <span class="mb-2">
-                                 <?= $Product->getPrice(); ?> € 
-                                </span>
-
-                                <div align="right" class="">
-                                    <a id="addButtonBlock" class="btn btn-info btn-sm" style="margin-top:-25px; font-size:9px"
-                                    onclick="addToCart(<?= $Product->getId() . "," . $Product->getPrice() ?>)" >
-                                        <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd <i class="fas fa-shopping-cart"></i>
-                                    </a>
-                                </div>
-                                
+                            </a>
+                            <div class="mt-4 ">
+                                <small>
+                                    <span>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-muted"></i>
+                                        <i class="fa fa-star text-muted"></i>
+                                    </span>
+                                </small> 
                             </div>
+
+                            <span class="mb-2">
+                                <?= $Product->getPrice(); ?> € 
+                            </span>
+
+                            <div align="right" class="">
+                                <a id="addButtonBlock" class="btn btn-info btn-sm" style="margin-top:-50px; font-size:9px"
+                                onclick="addToCart(<?= $Product->getId() . "," . $Product->getPrice() ?>)" >
+                                    <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd <i class="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                                
                         </div>
-                    </a>
+                    </div>
 
                   
                 <?php }?>
@@ -229,19 +258,6 @@ require 'header.php';
 <?php include(ROOT_PATH . '/pages.php') ?>
 
 <br><br><br>
-<script>
-window.onscroll = function() {myFunction()};
 
-var navbar = document.getElementById("Cart-button");
-var sticky = navbar.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
-}
-</script>
 <?php include(ROOT_PATH . '/footer.php') ?>
 

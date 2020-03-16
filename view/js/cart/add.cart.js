@@ -10,6 +10,9 @@ function addToCart(productId, productPrice) {
             items.innerHTML = parseInt(items.innerHTML) + 1;
             var price = document.getElementById("cartTotalPrice");
             price.innerHTML = (parseFloat(price.innerHTML) + productPrice).toFixed(2);
+
+            var price2 = document.getElementById("cartTotalPrice2");
+            price2.innerHTML = (parseFloat(price2.innerHTML) + productPrice).toFixed(2);
         }
     };
 

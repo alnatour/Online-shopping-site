@@ -5,7 +5,7 @@ class ArticleDb
     private static $instance;
     private $pdo;
     
-    const GET_All_PRODUCTS          = "SELECT * FROM products_tb";
+    const GET_All_PRODUCTS          = "SELECT * FROM products_tb p";
     const PRODUCT_BY_SUBCATEGORY    = " WHERE subcategory_id = ?";
     const PRODUCTS_ORDER            = " ORDER BY datum ASC";
 
@@ -147,6 +147,29 @@ class ArticleDb
         $statement->execute(array($artikelinfo->getId()));  
     }
     
+
+    /*
+    *Search
+    */
+    function GetProductsWithSearch($page, $PageSize, $search)
+    {
+            $sql = self::GET_All_PRODUCTS;
+            $params = array();
+
+            if ($search != '') {
+                $sql .= self::GET_ARTICLES_SEARCH;
+                $params = array($search,$search);
+            }
+
+            $sql .= self::ARTICLES_ORDER;
+            $sql .= " LIMIT " . $PageSize . " OFFSET " . ($PageSize*($page-1));
+            
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute($params);
+            $Products = $statement->fetchAll(PDO::FETCH_CLASS, ArticleInfo::class);
+            return $Products;
+    }
+
 
     //View in page admin All Artickle With Authors
     function GetProductsWithAuthors($page=1, $PageSize=50,$search='')

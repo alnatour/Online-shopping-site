@@ -1,11 +1,14 @@
-
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/index_css.css'?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/artikel.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/cart.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/header.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/styles.css'?>">
     
     <!-- <link rel="stylesheet" href="view/css/footer.css">-->
 
@@ -27,9 +30,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
+    <!-- Material Design Bootstrap 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-
+-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
 
@@ -78,7 +81,7 @@
 
 
 
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'view/css/cart.css'?>">
+
           <!-- Script for adding product to favourites -->
     <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/favourites.js'?>"></script>
     <!-- Cart JS -->
@@ -91,189 +94,87 @@
     <!-- Script for controlling cart quantity -->
     <script type="text/javascript" src="<?php echo BASE_URL . 'view/js/cart/quantity.cart.js'?>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-    <style>    
 
-      body{
-        font-family: "Museo Sans W01_300",Times,sans-serif;
-        font-size: 16px;
-      }
 
-    
-      .parallax-contact {
-        /* The image used */
-        background-image: url("https://marketpeima.com/wp-content/uploads/%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%DB%8C%D8%A7%D8%A8%DB%8C-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-1.jpg");
-        /* Set a specific height */
-        min-height: 400px; 
-
-        /* Create the parallax scrolling effect */
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-      .parallax-artikel {
-        /* The image used */
-        background-image: url("https://marketpeima.com/wp-content/uploads/%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%DB%8C%D8%A7%D8%A8%DB%8C-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-1.jpg");
-        /* Set a specific height */
-        min-height: 300px; 
-
-        /* Create the parallax scrolling effect */
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
+    <style>
+      .single-banner:hover::before {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
       }
 
-      @media only screen and (max-width: 1020px)  {
-            .hidden{
-              display:none;
-            }
-          }
-      @media only screen and (max-width: 451px)  {
-        .cart-responsive{
-          width:90%!important;
-          margin-left:5% !important;
-          margin-top:5px !important;
-        }
+      .single-banner::before {
+        position: absolute;
+        left: 50px;
+        top: 75px;
+        border: 13px solid #ffffff;
+        content: "";
+        opacity: 0.3;
+        width: calc(100% - 100px);
+        height: calc(40% - 100px);
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.5s;
       }
-
-      .remove{
-        display:none;
-      }
-      #pagination{
-        float:left;
-      }
-      .page-active{
-        background-color: #4285f4;
-        color : #fff;
-        border-radius :5px;
-      }
-      .inner {
-        min-width: 850px;
-        margin: auto;
-        padding-top: 68px;
-        padding-bottom: 48px;
-        background: url("https://www.utshockey.org/wp-content/uploads/2015/11/RegisterNow_small.jpg"); }
-      .inner h3 {
-        text-transform: uppercase;
-        font-size: 22px;
-        font-family: "Muli-Bold";
-        text-align: center;
-        margin-bottom: 32px;
-        color: #333;
-        letter-spacing: 2px; }
-        
-      @import url('https://fonts.googleapis.com/css?family=Numans');
-      
-      .card{
-        height: auto;
-        margin-top: auto;
-        margin-bottom: auto;
-        width: auto;
-        background-color:#ffffff!important;
-      }
-      .support{
-        float:right
-      }
-      .nav-item a{
-        color:white
-      }
-      .nav-link .active {
-        background-color: #4285f4!important;
-      }
-      .hover-navbar a:hover  {
-        border-radius :5px;
-        margin-top:10px;
-				padding-bottom: 5px; background: #ccc; transition: 0.1s;
-			}
-
-      .content .menu .card .card-content a {
-          display: block;
-          box-sizing: border-box;
-          padding: 8px 10px;
-          border-bottom: 1px solid #e4e1e1;
-          color: #444;
-        }
-        .content .menu .card .card-content a:hover {
-          padding-left: 20px; background: #ccc; transition: 0.1s;
-        }
-        .menu {
-          background-color:#33b5e5 !important;
-          height: 80px;
-          padding-top: 15px;
-          
-        }
-        .text-cart, #cartTotalPrice, #cartItems{
-          color: white!important;
-        }
-        .sticky {
-          position: fixed;
-          top: 0;
-          width: 100%;
-          z-index:1;
-        }
-
-        .sticky{
-          padding-top: 80px;
-        }
 
     </style>
-
-
 </head>
 <body>
+<div class="fixed-top">
+  <nav class="navbar navbar-expand-lg  navbar-dark btn-group-toggle bg-primary" >
+    <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">
+    <img src="<?php echo BASE_URL . 'public/img/logo-carousel/logo.png' ?>" height='40px'></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<nav class="navbar navbar-expand-lg  navbar-dark fixed-top btn-group-toggle bg-primary" >
-  <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">
-  <img src='#' height='40px'></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="<?php echo BASE_URL . 'index.php'?>">Home <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link"  href="<?php echo BASE_URL . 'index.php' ?>">Articles</a>
+          </li>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item ">
-          <a class="nav-link" href="<?php echo BASE_URL . 'index.php'?>">Home <span class="sr-only"></span></a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link"  href="<?php echo BASE_URL . 'index.php' ?>">Articles</a>
-        </li>
+          <?php if(isset($_SESSION['role']) && ($_SESSION['role'] == 3 )) { ?>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Contacts Panel
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="<?php echo BASE_URL . 'Contacts/contact_Sql/index.php' ?>">Contacts SQL</a>
+              <a class="dropdown-item" href="<?php echo BASE_URL . 'Api/ApiAddress/index.php' ?>">Contacts API</a>
+              <a class="dropdown-item" href="<?php echo BASE_URL . 'Contacts/contact_Api/index.php' ?>">Contacts SQL+API</a>
+              <a class="dropdown-item" href="<?php echo BASE_URL . 'Api/ApiArticle/InsertArticleApi.php' ?>">Article API</a>
+            </div>
+          </li>
+          <?php } ?>
 
-        <?php if(isset($_SESSION['role']) && ($_SESSION['role'] == 3 )) { ?>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Contacts Panel
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="<?php echo BASE_URL . 'Contacts/contact_Sql/index.php' ?>">Contacts SQL</a>
-            <a class="dropdown-item" href="<?php echo BASE_URL . 'Api/ApiAddress/index.php' ?>">Contacts API</a>
-            <a class="dropdown-item" href="<?php echo BASE_URL . 'Contacts/contact_Api/index.php' ?>">Contacts SQL+API</a>
-            <a class="dropdown-item" href="<?php echo BASE_URL . 'Api/ApiArticle/InsertArticleApi.php' ?>">Article API</a>
-          </div>
-        </li>
-        <?php } ?>
+      </ul>
 
-    </ul>
-
-    <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
- 
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo BASE_URL . 'contact_with_us/contact.php' ?>"><i class="fas fa-envelope" ></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
-            </li> 
-               <?php if (!isset($_SESSION['user'] )) { ?>
-                      <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/register.php' ?>" class="nav-link">Register</a> </li>
-                      <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/login.php' ?>" class="nav-link">Login</a> </li>
-                 <?php  } ?>
+      <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
   
-                  <?php if( isset($_SESSION['user']) ) { ?>
-                    <li class="nav-item support"><a class="nav-link bg-info">Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
-                    <li class="nav-item support"><a href="<?php echo BASE_URL . 'article/posts.php'?>" class="nav-link"> Admin Plan</a></li>
-                    <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/log_out.php' ?>" class="nav-link">LogOut</a></li>
-                <?php } ?>
-          </ul>
-    </div>
-</nav>
-
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo BASE_URL . 'contact_with_us/contact.php' ?>"><i class="fas fa-envelope" ></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+              </li> 
+                <?php if (!isset($_SESSION['user'] )) { ?>
+                        <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/register.php' ?>" class="nav-link"><i class="fa fa-registered"></i> Register</a> </li>
+                        <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/login.php' ?>" class="nav-link"><i class="fa fa-user"></i> Login</a> </li>
+                  <?php  } ?>
+    
+                    <?php if( isset($_SESSION['user']) ) { ?>
+                      <li class="nav-item support"><a class="nav-link bg-white">Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
+                      <li class="nav-item support"><a href="<?php echo BASE_URL . 'article/posts.php'?>" class="nav-link"> Admin Plan</a></li>
+                      <li class="nav-item support"><a href="<?php echo BASE_URL . 'registration/log_out.php' ?>" class="nav-link">LogOut</a></li>
+                  <?php } ?>
+            </ul>
+      </div>
+  </nav>
+</div>
 
 <?php if ($feedback != '') { ?>
     <div class="alert alert-danger d-flex justify-content-center" style="margin-top:200px"><?=$feedback;?></div>

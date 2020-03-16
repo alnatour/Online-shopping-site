@@ -21,7 +21,7 @@ $GetAuthors = $Articledb->GetContactID($contact_id);
 /* Comment */
 
 
-require 'head_section.php';
+require (ROOT_PATH . "/header.php");
 ?>
 
 <div style='margin-top:100px' >
@@ -32,21 +32,31 @@ require 'head_section.php';
         <div class="header_right " style="margin-top: 10em;position: absolute;width:180px">
 
             <!-- Cart page button -->
-            <div id="cartToHover" class="cart box_1" style="height:70px;">
-                <div class="menu bg-white" style="border-radius:10px;padding-left:40px;">
-                    <a href="<?php echo BASE_URL . 'cart/cart.php'?>"  class="text-cart">
-                        <div class="total" style="display: inline-block;vertical-align: middle;">€
-                            <div id="cartTotalPrice" style="display: inline;"> <?= $cartTotalPrice ?></div>
-                            <br>
-                            (<div id="cartItems" style="display: inline;"><?= $cartItems ?></div>)items 
-                        </div>
-                        <i class="fas fa-shopping-cart" style="font-size:35px"></i>
+            <ul class="item">
+                <li style="list-style:none">
+                <div align="right" id="cartToHover" class="box_1">
+                    <a href="../cart/cart.php">
+                        <span id="cartItems" class="notify-badge"><?= $cartItems ?></span>
+                        <i class="fa fa-shopping-cart" style="font-size:30px;"></i>
                     </a>
                 </div>
+                <div id="cartDivHover" class="cart-hover">
+                    
+                    <div id="cartDivHover2" class="cart-items"></div>
 
-                <div class="clearfix"></div>
-            </div>
-            <div id="cartDivHover" style="margin-top:-27px;margin-left:-30px;"></div>
+                    <div class="cart-total" style='background-color:#fff'>
+                        <span>total:</span>$
+                        <h5 id="cartTotalPrice"><?= $cartTotalPrice ?></h5>
+                        <br>
+                    </div>
+                    <div class="select-button" style='background-color:#fff'>
+                        <a href="cart/cart.php" class="btn btn-dark">VIEW CARD</a>
+                        <a href="cart/checkout.php" class="btn btn-info">CHECK OUT</a>
+                    </div>
+                </div>
+                </li>$
+                <li class="cart-price"  id="cartTotalPrice2"><?= $cartTotalPrice ?></li>
+            </ul>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -150,7 +160,7 @@ require 'head_section.php';
 
   <br><br>
   <div  align="center" style='margin-bottom:76px' >
-      <a class='btn  btn-danger mt-4' href="<?php// echo BASE_URL . 'index.php' ?>" onclick="goBack()"><i class='fa fa-arrow-left' ></i> Zurück</a>
+      <a class='btn  btn-danger mt-4' href="" onclick="goBack()"><i class='fa fa-arrow-left' ></i> Zurück</a>
   </div>
 </div>
 
