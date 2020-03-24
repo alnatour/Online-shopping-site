@@ -12,32 +12,31 @@ class RegisterService {
         $this->registerDb = RegisterRepository::getInstance();
     }
 
-    public function login($email)
+    public function login($user)
     {
         $errors = array();
-
-        $user = $this->registerDb->findUserByEmail($email);
+        $user_check = $this->registerDb->findUserByEmail($user);
        
-        if ($user !==  false){
-            if ($user->getPassword() !== $_POST['password']) {
+        if ($user_check !==  false){
+            if ($user_check->getPassword() !== $user->getPassword() ) {
                     array_push($errors, "The Password is incorrect ");
                 }
             if (count($errors) == 0) {
-                    if($this->registerDb->checkIfLoggedUserIsAdmin($user) == 3) {
-                        $_SESSION['role'] = 3;
+                    if($this->registerDb->checkIfLoggedUserIsAdmin($user) == 'admin') {
+                        $_SESSION['role'] = 'admin';
                         
                     }else {
                         $_SESSION['loggedUser'] = true;
                     }
 
-                    $_SESSION['user'] = $user;
-                    header('Location: ../index.php');
+                    $_SESSION['user'] = $user_check;
+                    header('Location: '.BASE_URL.'index.php');
                 }
             } else {
-                array_push($errors, "E-Mail $email is incorrect");
+                array_push($errors, 'E-Mail '.$user->getEmail().' is incorrect');
             }
 
-            return $errors;
+            $_SESSION['message'] = $errors;
 
     }
 
@@ -46,7 +45,7 @@ class RegisterService {
         $errors = array();
 
         //Check if user exists
-        $checkUser = $this->registerDb->findUserByEmail($user->getEmail());
+        $checkUser = $this->registerDb->findUserByEmail($user);
 
             //Check errors
         if ($checkUser) {
@@ -72,19 +71,19 @@ class RegisterService {
             array_push($errors, "Last Name is required");
         }
         
-        //insert new user 
+        //create new user 
         if (count($errors) == 0) {
 
-            $insert = $this->registerDb->registerNewUser($user);
+            $create_user = $this->registerDb->registerNewUser($user);
 
-            if(!$insert){
+            if(!$create_user){
                 $feedback = 'wurde nicht registriert';
             }else{
                 $_SESSION['user'] = 1;
             }
-            $user->setId($insert);
+            $user->setId($create_user);
             $_SESSION['user'] = $user;
-            header('Location: ../index.php');
+            header('Location: '.BASE_URL.'index.php');
         }
         return $errors;
 

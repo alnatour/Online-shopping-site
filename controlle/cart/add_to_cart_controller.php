@@ -1,5 +1,5 @@
 <?php
-require '../../include.php';
+require '../../config.php';
 
 
 $productsDao = ArticleDb::getInstance();

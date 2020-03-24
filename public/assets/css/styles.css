@@ -1,0 +1,223 @@
+
+body{
+  font-family: 'Varela Round', sans-serif!important;
+  background: #f8f6f0!important;
+}
+
+
+.parallax-contact {
+  /* The image used */
+  background-image: url("https://marketpeima.com/wp-content/uploads/%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%DB%8C%D8%A7%D8%A8%DB%8C-%D9%85%D8%B3%D8%AA%D9%82%DB%8C%D9%85-1.jpg");
+  /* Set a specific height */
+  min-height: 400px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-artikel {
+  /* The image used */
+  background-image: url("http://localhost/xampp/2020/20.11.2019%20Produkts/kontakte_verwalten/public/assets/img/logo-carousel/shopping_img.jpg");
+  /* Set a specific height */
+  min-height: 300px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 1020px)  {
+	  .hidden{
+		display:none;
+	  }
+	}
+@media only screen and (max-width: 451px)  {
+  .cart-responsive{
+	width:90%!important;
+	margin-left:5% !important;
+	margin-top:5px !important;
+  }
+}
+
+.single-banner:hover::before {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.single-banner::before {
+  position: absolute;
+  left: 50px;
+  top: 60px;
+  border: 13px solid #ffffff;
+  content: "";
+  opacity: 0.3;
+  width: calc(100% - 100px);
+  height: calc(50% - 100px);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.5s;
+}
+
+.article {
+  padding: 10px;
+  transition: transform 0.5s ease 0s;
+}
+.article:hover {
+  transform: scale(1.05);
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px #888888;
+}
+.card-body {
+  padding: 0.25rem!important;
+}
+@media only screen and (max-width: 991px) {
+	.banner-section {
+		padding: 80px 0 50px;
+	}
+	.single-banner {
+		margin-bottom: 30px;
+	}
+	.women-banner {
+		padding-right: 0;
+		padding-left: 0;
+	}
+	.product-large {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.deal-of-week {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.product-slider .owl-nav button[type=button] {
+		display: none;
+	}
+	.man-banner {
+		padding-right: 0;
+		padding-left: 0;
+	}
+	.place-order {
+		padding-top: 30px;
+	}
+	.blog-tags {
+		padding-bottom: 40px;
+	}
+	.blog-details-inner .blog-post .prev-blog {
+		margin-bottom: 40px;
+	}
+	.contact-form {
+		padding-top: 40px;
+	}
+	.product-large.m-large {
+		margin-top: 40px;
+	}
+	.hero-items .owl-nav button[type=button] {
+		left: 5px;
+	}
+	.hero-items .owl-nav button[type=button].owl-next {
+		right: 5px;
+	}
+	.product-shop.page-details .product-details {
+		padding-top: 30px;
+	}
+	.inner-header .advanced-search .input-group button {
+		right: -8px;
+	}
+}
+
+.remove{
+  display:none;
+}
+#pagination{
+  float:left;
+}
+.page-active{
+  background-color: #4285f4;
+  border-radius :5px;
+}
+.inner {
+  min-width : 850px;
+  margin: auto;
+  padding-top: 68px;
+  padding-bottom: 48px;
+  background: url("https://www.utshockey.org/wp-content/uploads/2015/11/RegisterNow_small.jpg"); 
+}
+.inner h3 {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-family: "Muli-Bold";
+  text-align: center;
+  margin-bottom: 32px;
+  color: #333;
+  letter-spacing: 2px; }
+  
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.card{
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: auto;
+  background-color:#ffffff!important;
+}
+.support{
+  float:right
+}
+
+.navbar {
+  padding: 0!important;
+}
+.nav-item a{
+  color:#000!important;
+}
+
+.nav-link .active {
+  background-color: #4285f4!important;
+}
+.hover-navbar a:hover  {
+  color:#000!important;
+  border-radius :5px;
+  margin-left:10px;
+  padding-left: 5px; background: #ccc; transition: 0.3s;
+	  }
+
+  .btn-outline-primary:hover {
+    cursor: pointer;
+    }
+.content .menu .card .card-content a {
+	display: block;
+	box-sizing: border-box;
+	padding: 8px 10px;
+	border-bottom: 1px solid #e4e1e1;
+	color: #444;
+  }
+  .content .menu .card .card-content a:hover {
+	padding-left: 20px; background: #ccc; transition: 0.3s;
+  }
+  .menu {
+	height: auto;
+	padding-top: 15px;
+	
+  }
+  .text-cart, #cartItems{
+	color: white!important;
+  }
+  .sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index:1;
+  }
+
+  .sticky{
+	padding-top: 80px;
+  }

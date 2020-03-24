@@ -1,24 +1,22 @@
 <?php
 
-require 'database/ConnectionDb.php';
-
 class ContactDb
     {
     private static $instance;
     private $pdo;
 
-    const SQL_INDEX_COUNT       = "SELECT COUNT(*) FROM contact";
-    const SQL_INDEX             = "SELECT * FROM contact";
+    const SQL_INDEX_COUNT       = "SELECT COUNT(*) FROM users";
+    const SQL_INDEX             = "SELECT * FROM users";
     const SQL_INDEX_SEARCH      = " WHERE email LIKE ? OR firstname LIKE ? OR lastname LIKE ?";
 
-    const Get_Address_ByID      = "SELECT * FROM contact WHERE id = ?";
-    const getAddressByEmail     = "SELECT * FROM contact WHERE email = ?";
+    const Get_Address_ByID      = "SELECT * FROM users WHERE id = ?";
+    const getAddressByEmail     = "SELECT * FROM users WHERE email = ?";
 
-    const SQL_INSERT            = "INSERT INTO contact (email, firstname, lastname, street, zip, city, country, phone, fax, mobile, internet, company) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const SQL_SET_EXTERNALID    = "UPDATE contact SET external_id = ? WHERE id = ?";
-    const SQL_UPDATE            = "UPDATE contact set email = ?, firstname = ?, lastname = ?, street = ?, zip = ?, city = ?, country = ?, phone = ?, fax = ?, mobile = ?, internet = ?, company = ? WHERE id = ?";    
+    const SQL_INSERT            = "INSERT INTO users (email, firstname, lastname, street, zip, city, country, phone, fax, mobile, internet, company) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const SQL_SET_EXTERNALID    = "UPDATE users SET external_id = ? WHERE id = ?";
+    const SQL_UPDATE            = "UPDATE users set email = ?, firstname = ?, lastname = ?, street = ?, zip = ?, city = ?, country = ?, phone = ?, fax = ?, mobile = ?, internet = ?, company = ? WHERE id = ?";    
    
-    const SQL_DELETE            = "DELETE FROM contact WHERE id = ?";
+    const SQL_DELETE            = "DELETE FROM users WHERE id = ?";
 
     //Get connection in construct
     private function __construct()

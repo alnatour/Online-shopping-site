@@ -1,7 +1,6 @@
 <?php
 
-require '../../include.php';
-
+require '../../config.php';
 
 if (isset($_SESSION['cart']) && isset($_GET['pid'])) {
     $productId = $_GET['pid'];

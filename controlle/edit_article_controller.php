@@ -1,30 +1,29 @@
 <?php
 
-if(!isset($_SESSION['user']) )
-{	// not logged in
-    header('Location: '.BASE_URL.'index.php');
-    die();
-}
+$ArticleDb = ArticleDb::getInstance();
+$UsersDb = RegisterRepository::getInstance();
+$SubCategoryDb = SubCategoriesDb::getInstance();
+$CategoryDb = CategoriesDb::getInstance();
+
 $errors = array();
 $edit ='';
 $id = $_GET['id'];
-$articledb = ArticleDb::getInstance();
-$article = $articledb->GetByid($id);
 
-$UsersDb = RegisterRepository::getInstance();
+//getting All Article 
+$article = $ArticleDb->GetByid($id);
+//getting All Users
 $Users = $UsersDb->GetAllUsers();
 
-
-$CategoryDb = CategoriesDb::getInstance();
+//getting All Sections for One Article 
+$sections = $CategoryDb->getSectionsForArticle($id);
+//getting All Categories
 $categories = $CategoryDb->getAllCategories();
 
-$SubCategoryDb = SubCategoriesDb::getInstance();
-$SubCategories = $SubCategoryDb->getAllSubCategories();
+//getting All SubCategories
+$sub_categories = $SubCategoryDb->getAllSubCategories();
 
 
 $datum_update = date("F j, Y, h:i a");
-
-
 
 if (isset($_POST['submit_update'])) {
 
@@ -60,7 +59,7 @@ if (isset($_POST['submit_update'])) {
 
     if(!empty($_FILES['image']['tmp_name']) 
     && file_exists($_FILES['image']['tmp_name'])) {
-      $uploads_dir = 'C:\xampp\htdocs\xampp\2020\20.11.2019 Produkts\kontakte_verwalten/view/images';
+      $uploads_dir = BASE_URL.'uploads/productImages';
       $filename = basename($_FILES["image"]["name"]);
       $filetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
       $imagee = move_uploaded_file($filetmp, "$uploads_dir/$filename");
@@ -71,8 +70,8 @@ if (isset($_POST['submit_update'])) {
 
     //insert new user 
     if (count($errors) == 0) {
-      $edit = $articledb->editArticle($article);
-      header('location: view_one_artikel.php?id='.$id.'');
+      $edit = $ArticleDb->editArticle($article);
+      header('location: '.BASE_URL.'view/main/single.php?id='.$id.'');
     }
   }
 

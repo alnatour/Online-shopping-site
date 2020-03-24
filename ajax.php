@@ -1,5 +1,5 @@
 <?php
-require 'include.php';
+require 'config.php';
 
 $articledb = ArticleDb::getInstance();
 $artikelinfo = new ArticleInfo();
@@ -16,15 +16,7 @@ if(isset($_POST['PageSize'])){
     $_SESSION['PageSize'] = $PageSize ;
 } 
 
-
-
-if(!isset($_GET['page']))
-{
-    $page = 1;
-}else{
-    $page =$_GET['page'];
-   
-}
+(isset($_GET['page'])) ? $page = $_GET['page'] : $page=1;
 
 
 if(isset($_GET['cid']))
@@ -34,8 +26,7 @@ if(isset($_GET['cid']))
     $Products = $SubCategoriesDb->getAllProductsWithCategoryID($page, $PageSize,$cid);
     $countAllProducts = $SubCategoriesDb->countAllProductsWithCategoryID($cid);
     $total = count($countAllProducts);
-
-    //echo '<pre>'; print_r($Products);die();
+    
 }else{
     $subcid ='';
     $Products = $articledb->GetProductsWithSubcat($page, $PageSize, $subcid);
@@ -52,57 +43,72 @@ if(isset($_GET['subcid']))
 }
 /** end Categories */
 
-
-
 $PageCount = ceil($total/$PageSize);
 
+$reviewsdb = ReviewsDb::getInstance();
+$AverageRatingsforproduct="";
 ?>
 
-              
-
-
+     
 <?php 
-    foreach ($Products as $Product) { ?>
+foreach ($Products as $Product) { ?>
 
-
-        <div class="card mr-2 mb-2 cart-responsive article" style="width:240px;height:410px;float:left;background-color:#ffffff!important;">
-            <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">
-                <img  class="img-fluid rounded mt-4 mb-4" src="view/images/<?= $Product->getImagee(); ?>" alt="">
-            </a>
-            <div class="card-body">
+<div class="col-12 col-md-4 menu  single-banner mb-4" style="float:left;background-color:#ffffff!important;">
+    <div class="card cart-responsive article">
+        
+        <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">
+            <img  class="img-fluid rounded mt-1 mb-4" src="<?php echo BASE_URL . 'public/uploads/productImages/'?><?= $Product->getImagee(); ?>" alt="">
+        </a>
+        <div class="card-body">
+            <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">
                 <h6 class="card-title text-center"><?= $Product->getTitle();  ?></h6>
-
-                <div  class="card-text mt-2 text-center"  style="height:35px">
+                <div  class="card-text mt-2 text-center "  style="height: 60px!important;">
                     <small class="text-muted">
                         <?php echo substr($Product->getArticle() ,0 ,75);?>
                         <?php if(strlen($Product->getArticle()) > 75){?>
-                        <a href="<?php echo BASE_URL . 'article/view_one_artikel.php?id='?><?= $Product->getId(); ?>">...</a>
+                        <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">...</a>
                         <?php } ?>
                     </small> 
                 </div>
-                <div class="mt-2">
-                    <small>
-                        <span>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-muted"></i>
-                            <i class="fa fa-star text-muted"></i>
-                        </span>
-                    </small> 
+            </a>
+        </div>
+        
+        <div class="card-footer bg-transparent mt-2 " style="height: 70px!important;">
+            <div class="pd-rating">  
+                <?php
+                    $AverageRatingsforproduct = $reviewsdb->getAverageRatingsForProduct($Product->getId());
+                    if (isset($AverageRatingsforproduct)) {
+                        foreach ($AverageRatingsforproduct as $average){
+                        for ($i = 1 ; $i <=  5 ; $i++){
+                            if($i <= round($average['average']) ){?>
+                            <i class="fa fa-star text-warning" data-index="<?= $i ?>"></i>
+                            <?php } ?>
+                            <?php if($i > round($average['average']) ){?>
+                            <i class="fa fa-star text-muted" data-index="<?= $i ?>"></i>
+                            <?php }
+                        } echo "(" . round($average['average'], 2) .")";
+                        } 
+                    }else { 
+                    for ($i = 1 ; $i <=  5 ; $i++){?> 
+                        <i class="fa fa-star text-muted" data-index="<?= $i ?>"></i>
+                <?php }} ?>
+            </div>
+            <div class="row ml-1"> 
+                <div style="width:50%; float:left">
+                    <span class="mb-2">
+                        <?= $Product->getPrice(); ?> € 
+                    </span>
                 </div>
-
-                <span class="mb-2">
-                    <?= $Product->getPrice(); ?> € 
-                </span>
-                <div align="right" class="mb-2">
-                    <a id="addButtonBlock" class="btn btn-success btn-sm" style="margin-top:-25px; font-size:9px"
-                                    onclick="addToCart(<?= $Product->getId() . "," . $Product->getPrice() ?>)" >
-                            <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd
-                        </a>
-                    </div>
+                <div align="right" style="width:50%">
+                    <a id="addButtonBlock" class="btn btn-outline-primary" style="font-size:12px"
+                    onclick="addToCart(<?= $Product->getId() . ',' . $Product->getPrice() ?>)" >
+                        <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd <i class="fa fa-shopping-cart" style="font-size:16px"></i>
+                    </a>
+                </div>
             </div>
         </div>
+        
+    </div>
+</div>
 
-    
 <?php }?>

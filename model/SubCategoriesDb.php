@@ -11,12 +11,17 @@ class SubCategoriesDb
 
     const GET_SUBCAT_BY_CATEGORY_ID     = "SELECT * FROM subcategories WHERE category_id = ?";
 
-    const GET_ARTICLES_BY_CATEGORY_ID   = "SELECT *, p.id AS productId FROM products_tb p  LEFT JOIN subcategories sub ON p.subcategory_id = sub.id WHERE sub.category_id = ?";
+    const GET_ARTICLES_BY_CATEGORY_ID   = "SELECT p.*, sc.id AS subcategory_id, c.id AS category_id FROM products_tb p
+                                            LEFT JOIN subcategories sc ON p.subcategory_id = sc.id 
+                                            LEFT JOIN categories c ON sc.category_id = c.id 
+                                            WHERE c.id = ?";
 
 
     const CREATE_SUBCAT                 = "INSERT INTO subcategories (name, category_id) VALUES (?, ?)";
 
-    const GET_SUBCAT_NAME               = "SELECT name FROM subcategories WHERE id = ?";
+    const GET_SUBCAT_BY_ID               = "SELECT sc.id, sc.name, c.name AS catname, c.id AS catId, category_id FROM subcategories sc
+                                                LEFT JOIN categories c ON sc.category_id = c.id
+                                                WHERE sc.id = ?";
 
     const GET_ALL_SUBCATS_ADMIN         = "SELECT sc.id, sc.name, c.name AS catname, c.id AS catId, category_id FROM subcategories sc 
                                             LEFT JOIN categories c ON sc.category_id = c.id";
@@ -24,8 +29,6 @@ class SubCategoriesDb
     const GET_ALL_SUBCATS_WITHOUT_PRODUCTS = "SELECT c.* FROM categories c 
                                           WHERE NOT EXISTS(SELECT * FROM products_tb p 
                                           WHERE p.subcategory_id = c.id)";
-
-    const GET_SUBCAT_BY_ID              = "SELECT * FROM subcategories WHERE id = ?";
 
     const EDIT_SUBCAT                   = "UPDATE subcategories SET name = ?, category_id = ? WHERE id = ?";
 
@@ -47,7 +50,7 @@ class SubCategoriesDb
     }
 
 
-    function getAllProductsWithCategoryID($page,$PageSize, $subcid)
+    function getAllProductsWithCategoryID($page,$PageSize, $cid)
     {
 
         $sql =self::GET_ARTICLES_BY_CATEGORY_ID;
@@ -55,9 +58,8 @@ class SubCategoriesDb
         $sql .= " LIMIT " . $PageSize . " OFFSET " . ($PageSize*($page-1));
         $statement = $this->pdo->prepare($sql);
 
-        $statement->execute(array($subcid));
-        $products = $statement->fetchAll();
-       // echo '<pre>'; print_r($products);die();
+        $statement->execute(array($cid));
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $products;
     }
 
@@ -93,8 +95,8 @@ class SubCategoriesDb
     {
         $statement = $this->pdo->prepare(self::GET_SUBCAT_BY_CATEGORY_ID);
         $statement->execute(array($subId));
-        $categories = $statement->fetchAll(PDO::FETCH_CLASS, SubCategory::class);
-        return $categories;
+        $subcategories = $statement->fetchAll(PDO::FETCH_CLASS, SubCategory::class);
+        return $subcategories;
     }
 
     function getSubCategoryById($subcid)
@@ -106,28 +108,6 @@ class SubCategoriesDb
         return $category;
     }
 
-
-//-------------------------------------------------------
-
-    function getSubCategoryName($subId)
-    {
-
-        $statement = $this->pdo->prepare(self::GET_SUBCAT_NAME);
-        $statement->execute(array($subId));
-        $subcategory = $statement->fetch();
-
-        return $subcategory[0];
-    }
-
-    function createSubCategory(SubCategory $subCategory)
-    {
-        $statement = $this->pdo->prepare(self::CREATE_SUBCAT);
-        $statement->execute(array(
-            $subCategory->getName(),
-            $subCategory->getCategoryId()));
-
-        return $this->pdo->lastInsertId();
-    }
 
     function editSubCategory(SubCategory $subcat)
     {
@@ -144,6 +124,31 @@ class SubCategoriesDb
 
         return true;
     }
+//-------------------------------------------------------
+
+    function getSubCategoryName($subId)
+    {
+
+        $statement = $this->pdo->prepare(self::GET_SUBCAT_BY_ID);
+        $statement->execute(array($subId));
+        $subcategory = $statement->fetch();
+
+        return $subcategory[0];
+    }
+
+    function createSubCategory(SubCategory $subCategory)
+    {
+        $statement = $this->pdo->prepare(self::CREATE_SUBCAT);
+        $statement->execute(array(
+            $subCategory->getName(),
+            $subCategory->getCategoryId()));
+
+        return $this->pdo->lastInsertId();
+    }
+
+
+
+
 
     //-------------------- check --------------------
     function getAllSubCategoriesWithoutProducts()
