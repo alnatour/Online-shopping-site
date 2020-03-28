@@ -36,14 +36,14 @@ include(ROOT_PATH . '/view/elements/head_section.php');
 					<form  action="login.php" method="post" >
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+								<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 							</div>
 							<input type="text" name="email" class="form-control" placeholder="Email">
 							
 						</div>
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
+								<span class="input-group-text"><i class="fa fa-key"></i></span>
 							</div>
 							<input type="password" name="password" class="form-control" placeholder="password" autocomplete="on">
 						</div>

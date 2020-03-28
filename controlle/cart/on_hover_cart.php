@@ -12,6 +12,7 @@ if (isset($_SESSION['cart'])) {
         $products[$key]['image_url'] = $value->getImage();
         $products[$key]['title'] = $value->getTitle();
         $products[$key]['price'] = $value->getPrice();
+        $products[$key]['discount'] = $value->getDiscount();
         $products[$key]['quantity'] = $value->getQuantity();
 
     }

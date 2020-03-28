@@ -48,12 +48,12 @@ require (ROOT_PATH . '/view/elements/counter.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 
     <!-- Script Img zoom for Single Page -->
-    <script type="text/javascript" src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL . 'public/assets/js/jquery.ez-plus.js'?>"></script>
 
 </head>
 <body>
 <div class="fixed-top">
-  <nav class="navbar navbar-expand-lg  navbar-dark btn-group-toggle bg-primary" >
+  <nav class="navbar navbar-expand-lg  navbar-dark btn-group-toggle bg-primary p-2" >
     <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">
     <img src="<?php echo BASE_URL . 'public/assets/img/logo-carousel/logo.png' ?>" height='40px'></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,11 +81,15 @@ require (ROOT_PATH . '/view/elements/counter.php');
                   <?php  } ?>
     
                     <?php if( isset($_SESSION['user']) ) { ?>
-                      <li class="nav-item support"><a class="nav-link bg-white">Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
+                      <li class="nav-item support"><a class="nav-link">Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
                       <li class="nav-item support" style="display:none"><a href="<?php echo BASE_URL . 'view/admin/admin_panel.php'?>" class="nav-link"> Admin Panel</a></li>
                       <li class="nav-item support" style="display:<?php if($_SESSION['user']->getRole() !== 'admin'){echo 'none';} ?>"><a href="<?php echo BASE_URL . 'view/admin/dashboard.php'?>" class="nav-link"> dashboard</a></li>
                       <li class="nav-item support"><a href="<?php echo BASE_URL . 'view/user/log_out.php' ?>" class="nav-link">LogOut</a></li>
                   <?php } ?>
+
+                  <li class="nav-item">
+                  <?php require (ROOT_PATH . '/view/elements/cart.php') ?>
+                </li>
             </ul>
       </div>
   </nav>

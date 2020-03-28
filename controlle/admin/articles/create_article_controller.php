@@ -34,11 +34,15 @@ if (isset($_POST['submit_insert'])) {
       }else{
         $artikelinfo->setTitle($_POST['title']);
       }
+
       if (empty($_POST['price']) ) {
           array_push($errors, "Price is required");
       }else{
         $artikelinfo->setPrice($_POST['price']);
       }
+
+      $artikelinfo->setDiscount($_POST['discount']);
+      
 
       if (empty($_POST['article'])) {
           array_push($errors, "article is required ");

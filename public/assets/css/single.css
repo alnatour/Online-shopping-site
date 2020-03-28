@@ -62,3 +62,7 @@ height: 41px;
 font-weight: bold;
 text-align: center;
 }
+
+#zoom_mw{
+	cursor: zoom-in;
+}

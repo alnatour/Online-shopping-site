@@ -1,5 +1,4 @@
 <?php
-require_once (ROOT_PATH . "/controlle/cart/cart_navi_controller.php");
 
 $articledb = ArticleDb::getInstance();
 $reviewsdb = ReviewsDb::getInstance();

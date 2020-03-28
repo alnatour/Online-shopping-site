@@ -5,6 +5,7 @@ class CartProduct
     private $id;
     private $title;
     private $price;
+    private $discount;
     private $quantity;
     private $image;
 
@@ -86,5 +87,25 @@ class CartProduct
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * Get the value of discount
+     */ 
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * Set the value of discount
+     *
+     * @return  self
+     */ 
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
     }
 }

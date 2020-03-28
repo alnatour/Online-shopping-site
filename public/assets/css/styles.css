@@ -74,7 +74,7 @@ body{
   transform: scale(1.05);
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 5px 10px #007bff;
 }
 .card-body {
   padding: 0.25rem!important;
@@ -141,9 +141,12 @@ body{
   float:left;
 }
 .page-active{
-  background-color: #4285f4;
-  border-radius :5px;
+  background-color: #007bff;
 }
+.page-active .nav-link{
+  color:#000!important;
+}
+
 .inner {
   min-width : 850px;
   margin: auto;
@@ -176,18 +179,14 @@ body{
 .navbar {
   padding: 0!important;
 }
-.nav-item a{
-  color:#000!important;
-}
+
 
 .nav-link .active {
-  background-color: #4285f4!important;
+  background-color: #007bff!important;
 }
-.hover-navbar a:hover  {
-  color:#000!important;
-  border-radius :5px;
+.hover-navbar li:hover  {
   margin-left:10px;
-  padding-left: 5px; background: #ccc; transition: 0.3s;
+  padding-left: 5px; background: #007bff; transition: 0.3s;
 	  }
 
   .btn-outline-primary:hover {
@@ -201,7 +200,7 @@ body{
 	color: #444;
   }
   .content .menu .card .card-content a:hover {
-	padding-left: 20px; background: #ccc; transition: 0.3s;
+	padding-left: 20px; background: #007bff; transition: 0.3s;color:#ffffff;
   }
   .menu {
 	height: auto;

@@ -1,7 +1,7 @@
 <?php
 require '../../../config.php';
 
-require_once (ROOT_PATH . '/controlle/create_article_controller.php');
+require_once (ROOT_PATH . '/controlle/admin/articles/create_article_controller.php');
 
 require (ROOT_PATH . '/view/elements/head_section.php');
 ?>
@@ -13,7 +13,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         <p class="text-danger"><?= $error ?></p>
     <?php } ?>
 
-  <form method="post" action='insertArticle.php' enctype="multipart/form-data">
+  <form method="post" action='article_create.php' enctype="multipart/form-data">
     <div class="form-group">
     <label >Select Author</label>
     <select class="form-control custom-select" name="Authors" >
@@ -37,12 +37,20 @@ require (ROOT_PATH . '/view/elements/head_section.php');
       <label for="Name">Title</label>
       <input type="text" class="form-control inputstl" name='title'>
     </div>
-    <div class="form-group">
-      <label for="Name">Price</label>
-         <input type="number" name="price" step="0.01" placeholder="Price" min="0" maxlength="100000000" class="form-control col-4" required/><br>
+
+    <!---Price-->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="Name">Price</label>
+          <input type="number" name="price" step="0.01" placeholder="Price" min="0" maxlength="100000000" class="form-control" required/>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="Name">Discount</label>
+          <input type="number" name="discount" step="0.01" placeholder="discount %" min="0" maxlength="100000000" class="form-control col-md-6"/>
+      </div>
     </div>
         <!---Categories-->
-        <div class="form-group">
+    <div class="form-group">
         <label >Select Category</label>
         <select class="form-control custom-select" name="category" id="category">
         <option  disabled selected value="">Choose Category</option>

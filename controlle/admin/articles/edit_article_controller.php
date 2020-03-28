@@ -43,6 +43,8 @@ if (isset($_POST['submit_update'])) {
       $article->setPrice($_POST['price']);
     }
 
+    $article->setDiscount($_POST['discount']);
+
     if (empty($_POST['article'])) {
       array_push($errors, "article is required ");
     }else{

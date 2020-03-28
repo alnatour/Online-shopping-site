@@ -1,6 +1,6 @@
 
 <div class="fixed-top">
-    <nav class="navbar navbar-expand-lg  navbar-dark btn-group-toggle bg-primary" >
+    <nav class="navbar navbar-expand-lg btn-group-toggle bg-primary" >
         <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">
         <img src="<?php echo BASE_URL . 'public/assets/img/logo-carousel/logo.png' ?>" height='40px'></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
                 <?php  } ?>
             
                 <?php if( isset($_SESSION['user']) ) { ?>
-                    <li class="nav-item support"><a class="nav-link bg-white">Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
+                    <li class="nav-item support"><a>Welcom <?php echo $_SESSION['user']->getLastname()?></a> </li>
                     <li class="nav-item support"><a href="<?php echo BASE_URL . 'view/admin/admin_panel.php'?>" class="nav-link"> Admin Plan</a></li>
                     <li class="nav-item support"><a href="<?php echo BASE_URL . 'view/user/log_out.php' ?>" class="nav-link">LogOut</a></li>
                 <?php } ?>

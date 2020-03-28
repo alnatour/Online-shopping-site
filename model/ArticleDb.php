@@ -31,9 +31,9 @@ class ArticleDb
                                         LEFT JOIN categories c ON sc.category_id = c.id 
                                         WHERE p.id = ?";
 
-    const SQL_INSERT                = "INSERT INTO products_tb (contact_id, title, price, imagee, article, datum, subcategory_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const SQL_INSERT                = "INSERT INTO products_tb (contact_id, title, price, discount,  imagee, article, datum, subcategory_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    const SQL_UPDATE                = "UPDATE products_tb set contact_id = ?, title = ?, price = ?, imagee = ?, article = ?, update_datum = ?, subcategory_id=? WHERE id = ?";
+    const SQL_UPDATE                = "UPDATE products_tb set contact_id = ?, title = ?, price = ?, discount =?, imagee = ?, article = ?, update_datum = ?, subcategory_id=? WHERE id = ?";
 
     const SQL_DELETE                = "DELETE FROM products_tb WHERE id = ?";
 
@@ -160,6 +160,7 @@ class ArticleDb
             $artikelinfo->getContactId(),
             $artikelinfo->getTitle(),
             $artikelinfo->getPrice(),
+            $artikelinfo->getDiscount(),
             $artikelinfo->getImagee(),
             $artikelinfo->getArticle(),
             $artikelinfo->getDatum(),
@@ -176,6 +177,7 @@ class ArticleDb
             $artikelinfo->getContactId(),
             $artikelinfo->getTitle(),
             $artikelinfo->getPrice(),
+            $artikelinfo->getDiscount(),
             $artikelinfo->getImagee(),
             $artikelinfo->getArticle(),
             $artikelinfo->getUpdatedatum(),

@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require '../../config.php';
 
 $articledb = ArticleDb::getInstance();
 $artikelinfo = new ArticleInfo();
@@ -58,6 +58,9 @@ foreach ($Products as $Product) { ?>
         
         <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">
             <img  class="img-fluid rounded mt-1 mb-4" src="<?php echo BASE_URL . 'public/uploads/productImages/'?><?= $Product->getImagee(); ?>" alt="">
+            <?php if(!empty($Product->getDiscount())){ ?>
+                <span class="discount"><?= $Product->getDiscount();  ?>%</span>
+            <?php } ?>
         </a>
         <div class="card-body">
             <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">
@@ -93,13 +96,17 @@ foreach ($Products as $Product) { ?>
                         <i class="fa fa-star text-muted" data-index="<?= $i ?>"></i>
                 <?php }} ?>
             </div>
-            <div class="row ml-1"> 
-                <div style="width:50%; float:left">
-                    <span class="mb-2">
-                        <?= $Product->getPrice(); ?> € 
+            <div class="row "> 
+                <div style="width:65%; float:left" class="mt-2">
+                    <span class="mb-2 ml-1" <?php if(!empty($Product->getDiscount())){ ?> style="text-decoration: line-through;font-size:12px;color:#7E9AA6" <?php }?>>
+                        <?= $Product->getPrice(); ?> $ 
                     </span>
+                    <?php if(!empty($Product->getDiscount())){ ?>
+                        <span class="mb-2 ml-1" ><?= $Product->getPrice()-(($Product->getPrice()*$Product->getDiscount())/100); ?> $
+                    </span>
+                    <?php }?>
                 </div>
-                <div align="right" style="width:50%">
+                <div align="right" style="width:35%">
                     <a id="addButtonBlock" class="btn btn-outline-primary" style="font-size:12px"
                     onclick="addToCart(<?= $Product->getId() . ',' . $Product->getPrice() ?>)" >
                         <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd <i class="fa fa-shopping-cart" style="font-size:16px"></i>

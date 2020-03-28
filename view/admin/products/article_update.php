@@ -1,7 +1,7 @@
 <?php
 require '../../../config.php';
 require (ROOT_PATH . '/controlle/admin/admin_session.php');
-require (ROOT_PATH . '/controlle/edit_article_controller.php');
+require (ROOT_PATH . '/controlle/admin/articles/edit_article_controller.php');
 require (ROOT_PATH . '/view/elements/head_section.php');
 ?>
 
@@ -39,9 +39,17 @@ require (ROOT_PATH . '/view/elements/head_section.php');
           <label for="Name"><b>Title</b></label>
           <input type="name" class="form-control inputstl" name='title' value="<?= $article->getTitle()  ?>">
         </div>    
-        <div class="form-group">
-          <label for="Name">Price</label>
-            <input type="number" value="<?= $article->getPrice()  ?>" name="price" step="0.01" placeholder="Price" min="0" maxlength="100000000" class="form-control col-4" required/><br>
+
+         <!---Price-->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Name">Price</label>
+              <input type="number"  value="<?= $article->getPrice()  ?>" name="price" step="0.01" placeholder="Price" min="0" maxlength="100000000" class="form-control" required/>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Name">Discount</label>
+              <input type="number" value="<?= $article->getDiscount()  ?>" name="discount" step="0.01" placeholder="discount %" min="0" maxlength="100000000" class="form-control col-md-6"/>
+          </div>
         </div>
 
         <!---Categories-->

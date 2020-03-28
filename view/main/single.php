@@ -1,6 +1,5 @@
 <?php
 require '../../config.php';
-require_once (ROOT_PATH . "/controlle/cart/cart_navi_controller.php");
 
 require (ROOT_PATH . '/controlle/single_controlle.php');
 
@@ -14,44 +13,6 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         
     </div>
 </div>
-
-    <!-- Cart button -->
-<div class="container-fluid">
-    <div  class="row justify-content-end mb-4" id="Cart-button" >
-        <div class="header_right " style=";position: absolute;width:180px">
-
-            <!-- Cart page button -->
-            <ul class="item">
-                <li style="list-style:none">
-                    <div align="right" id="cartToHover" class="cartToHoverSingle">
-                        <a href="<?php echo BASE_URL . 'view/main/cart/cart.php'?>">
-                            <span id="cartItems" class="notify-badge"><?= $cartItems ?></span>
-                            <i class="fa fa-shopping-cart" style="font-size:30px;"></i>
-                        </a>
-                    </div>
-                    <div id="cartDivHover" class="cart-hover">
-                        
-                        <div id="cartDivHover1" class="cart-items"></div>
-
-                        <div class="cart-total mt-2" style='background-color:#fff'>
-                            <span>total:</span><span style="color: #e7ab3c;float: right;margin-left:10px"> $</span>
-                            <h5 id="cartTotalPrice"><?= $cartTotalPrice ?></h5>
-                            <br>
-                        </div>
-                        <div class="select-button" style='background-color:#fff'>
-                            <a href="<?php echo BASE_URL . 'view/main/cart/cart.php'?>" class="btn btn-lg btn-dark">VIEW CARD</a>
-                            <a href="<?php echo BASE_URL . 'view/main/cart/checkout.php'?>" class="btn btn-lg btn-info mt-2">CHECK OUT</a>
-                        </div>
-                    </div>
-                </li style="float: left"><span class="ml-1">$ </span>
-                <li class="cart-price"  id="cartTotalPrice2" ><?= $cartTotalPrice ?></li>
-            </ul>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-
-
 
 <!-- Product Shop Section Begin -->
 <section class="product-shop spad page-details">
@@ -211,9 +172,18 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                 <i class="fa fa-star text-muted" data-index="<?= $i ?>"></i>
                             <?php }} ?>
                           </div>
-                          <div class="pd-desc">
+                          <div>
                               <p><?= $article['article']; ?></p>
-                              <h4>$<?= $article['price']; ?> <span><?= $article['price']; ?></span></h4>
+                              <h4>$
+                                    <?php if(!empty($article['discount'])){ ?>
+                                        <span class="mb-2" ><?= $article['price']-(($article['price']*$article['discount'])/100); ?>
+                                        </span>
+                                    <?php }?>
+                                    <span class="mb-2 ml-1" <?php if(!empty($article['discount'])){ ?> style="text-decoration: line-through;font-size:12px;color:#7E9AA6" <?php }?>>
+                                        <?= $article['price']; ?> 
+                                    </span>
+                                </h4>
+                                
                               <p><small>Incl. Taxes and plus shipping and service costs. <br>
                               You can find all information on our service page.</small></p>
                           </div>
@@ -443,9 +413,17 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 </div>
 
 <script>
-    $('#zoom_mw').ezPlus({
-        scrollZoom: true
+
+$(document).ready(function(){
+    $("#zoom_mw").click(function(){ 
+        $(this).ezPlus({
+            scrollZoom: true
+        });
+        $(this).ezPlus({
+            scrollZoom: false
+        });
     });
+});
 
 </script>
 
@@ -457,7 +435,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         var product_id = <?=$_GET['id']?>;
         $.ajax({ /* THEN THE AJAX CALL */
           type: "POST", /* TYPE OF METHOD TO USE TO PASS THE DATA */
-          url: "http://localhost/xampp/2020/20.11.2019%20Produkts/kontakte_verwalten/controlle/rating_ajax.php", /* PAGE WHERE WE WILL PASS THE DATA */
+          url: "<?php echo BASE_URL . 'controlle/rating_ajax.php'?>", /* PAGE WHERE WE WILL PASS THE DATA */
           data:{"rating": rating, 'user_id':user_id, 'product_id':product_id}, /* THE DATA WE WILL BE PASSING */
           success: function(response){ /* GET THE TO BE RETURNED DATA */
             $("#rating-star,#rating-star2").html(response);
@@ -475,5 +453,6 @@ require (ROOT_PATH . '/view/elements/head_section.php');
     $('.comment-form').toggleClass( "show-comment" );
     });
 </script>
+
 
 <?php require (ROOT_PATH . '/view/elements/footer.php') ?>

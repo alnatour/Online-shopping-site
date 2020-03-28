@@ -21,6 +21,8 @@ if (isset($_GET['pid'])) {
  
     $cartProduct->setImage($productDetails->getImagee());
 
+    $cartProduct->setDiscount($productDetails->getDiscount());
+
     if (isset($_SESSION['cart'])) {
         $cart = $_SESSION['cart'];
         if (array_key_exists($cartProduct->getId(), $cart)) {

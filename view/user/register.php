@@ -1,8 +1,6 @@
 <?php 
 require '../../config.php';
 
-require '../../controlle/session.php';
-
 $errors = array();
 
 if (isset($_POST['submit'])) {

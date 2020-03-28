@@ -5,48 +5,22 @@ require 'config.php';
 require (ROOT_PATH . '/controlle/index_controlle.php');
 
 require (ROOT_PATH . '/view/elements/head_section.php');
+
 ?>
-
-
-<!---Logo Img---->
-<div class ="smooth">
-    <div class="parallax-artikel"  style="margin-top:50px">
-        <br><br><br><br><br><br><br><br><br>
-        <!---Categori---->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light ml-4 mr-4 mt-4 hover-navbar" style="background-color:#fff !important;">
-            <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">All Articles</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ">
-                    <?php foreach ($categories as $category) { 
-                    if(isset($_GET['cid'])){
-                    $active = ($category->getId() == $_GET['cid']) ? ' page-active' : '';
-                    }?>
-                    <li class="nav-item  <?php if(isset($_GET['cid'])){echo $active;}?>">
-                        <a class="nav-link" href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>"><?= $category->getName() ?></a>
-                    </li>
-                    <?php }?>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</div>
-
-<!--logo && Search && Cart page button -->
+<div style="height:66px"></div>
+<!--logo && Search -->
 <div class="container-fluid " style="background-color:#ffffff!important; ">
     <div  class="row">
         <div class="col-lg-3 col-md-3">
             <div class="logo">
                 <a href="<?php echo BASE_URL . 'index.php' ?>">
-                    <img src="<?php echo BASE_URL . 'public/assets/img/logo-carousel/logo.png' ?>" alt="" width="80%">
+                    <img src="<?php echo BASE_URL . 'public/assets/img/logo-carousel/logo.png' ?>" alt="" width="50%">
                 </a>
             </div>
         </div>
         <div class="col-lg-7 col-md-7 mt-4" style="margin-top:50px!important">
                 <form method="post" action="index.php">
-                    <div class="input-group mt-3">
+                    <div class="input-group ">
                         <input type="text" name="search" class="form-control col-8" placeholder="What do you need?" class="form-control" value="<?=$search;?>">
                         <div class="input-group-prepend">
                             <input type="submit" name="submit_search" value="Search" class="btn btn-outline-primary" />
@@ -54,41 +28,41 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                     </div>
                 </form>
         </div>
-        <div align="right" class="col-lg-2 col-md-2" style="margin-left:-70px!important">
-            <ul class="item">
-                <li style="list-style:none">
-                    <div align="right" id="cartToHover" class="box_1">
-                        <a href="<?php echo BASE_URL . 'view/main/cart/cart.php'?>">
-                            <span id="cartItems" class="notify-badge"><?= $cartItems ?></span>
-                            <i class="fa fa-shopping-cart" style="font-size:30px;"></i>
-                        </a>
-                    </div>
-                    <div id="cartDivHover" class="cart-hover">
-                        
-                        <div id="cartDivHover2" class="cart-items"></div>
-
-                        <div class="cart-total mt-2" style='background-color:#fff'>
-                            <span>total:</span><span style="color: #e7ab3c;float: right;margin-left:10px"> $</span>
-                            <h5 id="cartTotalPrice"><?= $cartTotalPrice ?></h5>
-                            <br>
-                        </div>
-                        <div class="select-button" style='background-color:#fff'>
-                            <a href="<?php echo BASE_URL . 'view/main/cart/cart.php' ?>" class="btn btn-lg btn-dark">VIEW CARD</a>
-                            <a href="<?php echo BASE_URL . 'view/main/cart/checkout.php' ?>" class="btn btn-lg btn-info mt-2">CHECK OUT</a>
-                        </div>
-                    </div>
-                </li style="float: left"><span class="ml-1">$ </span>
-                <li class="cart-price"  id="cartTotalPrice2" ><?= $cartTotalPrice ?></li>
-            </ul>
-        </div>
     </div>
 </div>
 
+<!---Categori---->
+<nav class="navbar navbar-expand-md bg-dark hover-navbar " style="background-color:#252525!important">
+    <div class="container">
+        <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">All Articles</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav " >
+                <?php foreach ($categories as $category) { 
+                if(isset($_GET['cid'])){
+                $active = ($category->getId() == $_GET['cid']) ? ' page-active' : '';
+                }?>
+                <li style="padding:5px;border-left:1px solid #5a5a5a" class="nav-item  <?php if(isset($_GET['cid'])){echo $active;}?>">
+                    <a class="nav-link" href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>"><?= $category->getName() ?></a>
+                </li>
+                <?php }?>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!---Logo Img; navbar Topics---->
+<div class ="smooth">
+    <div class="parallax-artikel" >
+    <div style="height:150px"></div>
+    </div>
+</div>
 
 <!---MOST RECENT ARTICLES---->
 <div align="center" class="">
     <p>
-        <br>
         <h4>Most Recent Products</h4>
     </p>
     <?php include(ROOT_PATH . '/view/main/recent_product.php') ?>
@@ -98,7 +72,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 <div class="container content" style="background-color:#ffffff!important; ">
 
     <!--- breadcrumb ---->
-    <div class="row">
+    <div class="row bg-secondary" style="height: 47.61px!important;">
         <?php include(ROOT_PATH . '/view/elements/breadcrumb.php') ?>
     </div>
     <!--- end breadcrumb ---->
@@ -109,10 +83,18 @@ require (ROOT_PATH . '/view/elements/head_section.php');
             <div class="card cart-responsive">
                 <?php if (isset($_GET['cid'])) {?>
                     <p style="font-weight: bold" class="mt-3 text-center card-header">Sub Gategories </p>
+                    <div class="card-content">
+                        <?php foreach ($categories_breadcrumb as $category) { 
+                            if($category->getId() == $_GET['cid'] ){ ?> 
+                            <span class="list-group-item">
+                                <?= $category->getName() ?>
+                            </span>
+                            <?php  }}   ?>
+                     </div>
                     <?php foreach ($subcategories as $subcategory) { ?>
                     <div class="card-content">
-                            <a href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategory->getId() ?>"  class="list-group-item list-group-item-action">
-                                <?= $subcategory->getName() ?>
+                            <a href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategory->getId() ?>"  class="list-group-item list-group-item-action" style="padding-left:45px">
+                              <?= $subcategory->getName() ?>
                             </a>
                      </div>
                 <?php  }}  
@@ -153,6 +135,19 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                 </div>
             </div>
             <div class="row" id="postsdiv">
+
+            <style>
+                .discount {
+                    position: absolute;
+                    left: 10px;
+                    top: 20px;
+                    font-size: 16px;
+                    font-weight: 400;
+                    background-color: #FF0000;
+                    color: rgb(248, 250, 251);
+                    padding: 4px 6px;
+                }
+            </style>
                 <!---1 with  cid---->
                 <?php if(isset($_GET['cid'])){ ?>
                     
@@ -163,6 +158,9 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                     
                                     <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product['id']; ?>">
                                         <img  class="img-fluid rounded mt-1 mb-4" src="<?php echo BASE_URL . 'public/uploads/productImages/'?><?= $Product['imagee']; ?>" alt="">
+                                        <?php if(!empty($Product['discount'])){ ?>
+                                            <span class="discount"><?= $Product['discount'];  ?>%</span>
+                                        <?php } ?>
                                     </a>
                                     <div class="card-body">
                                         <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product['id']; ?>">
@@ -200,15 +198,19 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                         </div>
 
                                         <div class="row"> 
-                                            <div style="width:50%; float:left">
-                                                <span  style="font-size:14px!important">
-                                                    <?= $Product['price']; ?> € 
+                                            <div style="width:65%; float:left" class="mt-2">
+                                                <span class="mb-2 ml-1" <?php if(!empty($Product['discount'])){ ?> style="text-decoration: line-through;font-size:12px;color:#7E9AA6" <?php }?>>
+                                                    <?= $Product['price']; ?> $ 
                                                 </span>
+                                                <?php if(!empty($Product['discount'])){ ?>
+                                                    <span class="mb-2 ml-1" ><?= $Product['price']-(($Product['price']*$Product['discount'])/100); ?> $
+                                                    </span>
+                                                <?php }?>
                                             </div>
 
-                                            <div align="right" style="width:50%;">
+                                            <div align="right" style="width:35%;">
                                                 <a id="addButtonBlock" class="btn btn-sm btn-outline-primary" style="font-size:12px"
-                                                onclick="addToCart(<?= $Product['id'] . ',' . $Product['price'] ?>)" >
+                                                onclick="addToCart(<?= $Product['id'] . ',' . $currentPrice ?>)" >
                                                     <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd <i class="fa fa-shopping-cart" style="font-size:16px"></i>
                                                 </a>
                                             </div>
@@ -225,13 +227,22 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                 //--- 2 without GET ----
                 else {?> 
                     
-                        <?php foreach ($Products as $Product) { ?>
+                        <?php foreach ($Products as $Product) { 
+                            if(!empty($Product->getDiscount())){
+                                $currentPrice= number_format( $Product->getPrice()-(($Product->getPrice()*$Product->getDiscount())/100), 2);
+                            }else{
+                                $currentPrice = $Product->getPrice();
+                            }
+                            ?>
                             
                             <div class="col-12 col-md-4 menu  single-banner mb-4" style="float:left;background-color:#ffffff!important;">
                                 <div class="card cart-responsive article">
                                     
                                     <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">
                                         <img  class="img-fluid rounded mt-1 mb-4" src="<?php echo BASE_URL . 'public/uploads/productImages/'?><?= $Product->getImagee(); ?>" alt="">
+                                        <?php if(!empty($Product->getDiscount())){ ?>
+                                            <span class="discount"><?= $Product->getDiscount();  ?>%</span>
+                                        <?php } ?>
                                     </a>
                                     <div class="card-body">
                                         <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $Product->getId(); ?>">
@@ -267,15 +278,19 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                                     <i class="fa fa-star text-muted" data-index="<?= $i ?>"></i>
                                             <?php }} ?>
                                         </div>
-                                        <div class="row ml-1"> 
-                                            <div style="width:50%; float:left">
-                                                <span class="mb-2">
-                                                    <?= $Product->getPrice(); ?> € 
+                                        <div class="row "> 
+                                            <div style="width:65%; float:left" class="mt-2">
+                                                <span class="mb-2 ml-1" <?php if(!empty($Product->getDiscount())){ ?> style="text-decoration: line-through;font-size:12px;color:#7E9AA6" <?php }?>>
+                                                    <?= $Product->getPrice(); ?> $ 
                                                 </span>
+                                                <?php if(!empty($Product->getDiscount())){ ?>
+                                                    <span class="mb-2 ml-1" ><?= $currentPrice ?> $
+                                                </span>
+                                                <?php }?>
                                             </div>
-                                            <div align="right" style="width:50%">
+                                            <div align="right" style="width:35%">
                                                 <a id="addButtonBlock" class="btn btn-outline-primary" style="font-size:12px"
-                                                onclick="addToCart(<?= $Product->getId() . ',' . $Product->getPrice() ?>)" >
+                                                onclick="addToCart(<?= $Product->getId() . ',' . $currentPrice ?>)" >
                                                     <i class="glyphicon glyphicon-shopping-cart"></i>&nbspAdd <i class="fa fa-shopping-cart" style="font-size:16px"></i>
                                                 </a>
                                             </div>

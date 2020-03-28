@@ -12,6 +12,7 @@ class ArticleInfo {
     private $image;
     private $article;
     private $price;
+    private $discount;
     private $datum;
     private $update_datum;
     private $subcategory_id;
@@ -136,6 +137,26 @@ class ArticleInfo {
     public function setCategory_id($category_id)
     {
         $this->category_id = $category_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of discount
+     */ 
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * Set the value of discount
+     *
+     * @return  self
+     */ 
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
 
         return $this;
     }
