@@ -141,6 +141,40 @@ $count_users = $users_db->CountAllAddress();
             </div>
             <!-- Visitor -->
             <div class="row">
+            <!-- Users-->
+            <div class="col-4  menu" >
+                    <div class="card cart-responsive ">
+                        <div class="card-body bg-primary p-2 text-white">
+                            <div class="row">
+                                <div class="col-3">
+                                    <i class="fa fa-first-order fa-5x"></i>
+                                </div>
+                                <div class="col-9 text-right">
+                                    <div><?=$count_users?></div>
+                                    <div>Orders!</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="row"> 
+                                <div class=" text-primary" style="width:50%; float:left">
+                                    <span>
+                                        View Details
+                                    </span>
+                                </div>
+
+                                <div align="right" style="width:50%;">
+                                    <a href="<?php echo BASE_URL . 'view/admin/orders/orders_view.php' ?>" class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-arrow-circle-right"></i> 
+                                    </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
                 <div class="col-md-3 offset-md-9 menu" >
                     <div class="card cart-responsive ">
                         <div class="card-body bg-danger p-2 text-white">

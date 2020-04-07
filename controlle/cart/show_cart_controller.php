@@ -8,7 +8,7 @@ if (isset($_SESSION['cart'])) {
     $cartTotalPrice = 0;
     foreach ($cart as $cartProduct) {
         $cartItems += $cartProduct->getQuantity();
-        $cartTotalPrice += $cartProduct->getPrice() * $cartProduct->getQuantity();
+        $cartTotalPrice +=$cartProduct->getPrice() - ((($cartProduct->getPrice() * $cartProduct->getQuantity())*$cartProduct->getDiscount())/100);
     }
     //end
     $cartIsEmpty = 0;

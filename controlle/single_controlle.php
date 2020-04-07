@@ -2,6 +2,7 @@
 $articledb = ArticleDb::getInstance();
 $reviewsdb = ReviewsDb::getInstance();
 $CategoriesDb = CategoriesDb::getInstance();
+$specificationDb = SpecificationDb::getInstance();
 
 $categories = $CategoriesDb->getAllCategories();
 
@@ -32,4 +33,9 @@ $AverageRatingsforproduct = $reviewsdb->getAverageRatingsForProduct($id);
 
 /** GET RELATED PRODUCTS*/
 $most_articles = $articledb->getRelated($article['category_id']);
+
+/** GET specification With PRODUCTS*/
+$specification = $specificationDb->GetSpeciWithProduct($id);
+
+//echo '<pre>'; print_r($specification);die();
 ?>

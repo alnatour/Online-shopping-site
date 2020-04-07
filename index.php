@@ -14,11 +14,11 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         <div class="col-lg-3 col-md-3">
             <div class="logo">
                 <a href="<?php echo BASE_URL . 'index.php' ?>">
-                    <img src="<?php echo BASE_URL . 'public/assets/img/logo-carousel/logo.png' ?>" alt="" width="50%">
+                    <img src="<?php echo BASE_URL . 'public/uploads/profileImage/logo/logo_alnatour.png' ?>" alt="" width="50%">
                 </a>
             </div>
         </div>
-        <div class="col-lg-7 col-md-7 mt-4" style="margin-top:50px!important">
+        <div class="col-lg-7 col-md-7 mt-4 ml-auto" style="margin-top:50px!important">
                 <form method="post" action="index.php">
                     <div class="input-group ">
                         <input type="text" name="search" class="form-control col-8" placeholder="What do you need?" class="form-control" value="<?=$search;?>">
@@ -78,43 +78,28 @@ require (ROOT_PATH . '/view/elements/head_section.php');
     <!--- end breadcrumb ---->
 
     <div class="row "> 
-
+        <!--- left Silder Categories ---->
         <div class="col-12 col-md-3 menu" style="background-color:#ffffff!important; ">
-            <div class="card cart-responsive">
-                <?php if (isset($_GET['cid'])) {?>
-                    <p style="font-weight: bold" class="mt-3 text-center card-header">Sub Gategories </p>
-                    <div class="card-content">
-                        <?php foreach ($categories_breadcrumb as $category) { 
-                            if($category->getId() == $_GET['cid'] ){ ?> 
-                            <span class="list-group-item">
-                                <?= $category->getName() ?>
-                            </span>
-                            <?php  }}   ?>
-                     </div>
-                    <?php foreach ($subcategories as $subcategory) { ?>
-                    <div class="card-content">
-                            <a href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategory->getId() ?>"  class="list-group-item list-group-item-action" style="padding-left:45px">
-                              <?= $subcategory->getName() ?>
-                            </a>
-                     </div>
-                <?php  }}  
-                    
-                if (isset($_GET['subcid']))  {?>
-                    <p style="font-weight: bold" class="mt-3 text-center card-header">Sub Gategories </p>
-                        <a  class="list-group-item list-group-item-action">
-                            <?= $getSubCategoryById['name'] ?>
-                        </a>
-                <?php } 
-                
-                if (empty($_GET) || isset($_GET['page'])){ ?>
-                    <p style="font-weight: bold" class="mt-3 text-center card-header">Gategories </p>
-                    <?php  foreach ($categories as $category) {?>
-                        <div class="card-content">
-                            <a href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>"  >
-                                <?= $category->getName() ?>
-                            </a>
-                        </div>
-                    <?php  }} ?>
+            <div class="filter-widget">
+                <h4 class="fw-title mt-4">Categories</h4>
+                <ul class="filter-catagories mt-4">
+                <?php foreach ($categories as $category) {  
+                    $subcatActiv = (isset($_GET['cid']) && $_GET['cid']== $category->getId()) ? ' page-active text-white' : ''; ?> 
+                    <li>
+                        <a class="<?=$subcatActiv?>" href="<?php echo BASE_URL . 'index.php?cid='?><?= $category->getId() ?>" style="letter-spacing: 3px;"><b><?= $category->getName() ?></b></a>
+                        <ul class="filter-catagories">
+                            <?php foreach ($subcategories as $subcategory) { 
+                                if($category->getId() == $subcategory->getCategoryId()){
+                                    $subcatActiv = (isset($_GET['subcid']) && $_GET['subcid']== $subcategory->getId()) ? ' page-active text-white' : ''; ?>
+                                <li class="<?=$subcatActiv?>">
+                                    <a style="padding-left:20px" class="<?=$subcatActiv?>" href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategory->getId() ?>">
+                                        <?= ucfirst($subcategory->getName()) ?>
+                                    </a>
+                                </li>
+                            <?php  }} ?>
+                        </ul>
+                    </li>
+                <?php } ?>
             </div>
         </div>
 
@@ -125,7 +110,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                     <br>
                     <div align="right">
                         <label for="" class="mr-2"><small>Products per page</small> </label>
-                        <select id="PageSize" name="PageSize"  class="form-control form-control-sm " style="width:100px;float:right">
+                        <select id="PageSize" name="PageSize"  class="form-control-sm ">
                         <option <?php if ($PageSize == 6 ) echo 'selected' ; ?> value="6">6</option>
                         <option <?php if ($PageSize == 9 ) echo 'selected' ; ?> value="9">9</option>
                         <option <?php if ($PageSize == 15 ) echo 'selected' ; ?> value="15">15</option>
@@ -134,24 +119,19 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                     <br>
                 </div>
             </div>
+            <!--- Right Silder Products ---->
             <div class="row" id="postsdiv">
 
-            <style>
-                .discount {
-                    position: absolute;
-                    left: 10px;
-                    top: 20px;
-                    font-size: 16px;
-                    font-weight: 400;
-                    background-color: #FF0000;
-                    color: rgb(248, 250, 251);
-                    padding: 4px 6px;
-                }
-            </style>
                 <!---1 with  cid---->
                 <?php if(isset($_GET['cid'])){ ?>
                     
-                        <?php foreach ($Products as $Product) { ?>
+                        <?php foreach ($Products as $Product) { 
+                            if(!empty($Product['discount'])){
+                                $currentPrice= number_format( $Product['price']-(($Product['price']*$Product['discount'])/100), 2);
+                            }else{
+                                $currentPrice = $Product['price'];
+                            }
+                            ?>
 
                             <div class="col-12 col-md-4 menu  single-banner mb-4" style="float:left;background-color:#ffffff!important;">
                                 <div class="card cart-responsive article">

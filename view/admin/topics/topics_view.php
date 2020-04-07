@@ -21,13 +21,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
 
 <br><br><br>
-<div class='d-flex justify-content-center'>
-    <form method="post" action='admin_panel.php' style='margin:20px 0' class="form-inline"> 
-        <input type="text" name="search" class="form-control mr-sm-2" value="<?=$search;?>">
-        <input type="submit" name="submit_search" value="Search" class="btn btn-outline-success btn-rounded btn-sm my-0" />
-        <br/>
-    </form>
-</div>
+
 
 <br><br>
 	<div class="container content bg-white">
@@ -49,6 +43,25 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
 			<!-- Display records from DB-->
 			<div class="table-div col-9 table-hover" >
+				<div class="container mb-2 mt-4">
+					<div class="row">
+						<div  class="col-3" >
+							<a class="btn btn-outline-primary" href="<?php echo BASE_URL . 'view/admin/topics/categories_create.php' ?>">Create Category</a>
+						</div>
+						<div class="col-6">
+							<div class='d-flex justify-content-center'>
+								<form method="post" action='admin_panel.php' class="form-inline"> 
+									<input type="text" name="search" class="form-control mr-sm-2" value="<?=$search;?>">
+									<input type="submit" name="submit_search" value="Search" class="btn btn-outline-success btn-rounded btn-sm my-0" />
+									<br/>
+								</form>
+							</div>
+						</div>
+						<div class="col-3" >
+							<a class="btn btn-outline-primary" style="float:right" href="<?php echo BASE_URL . 'view/admin/topics/subcategories_create.php' ?>">Create Subcategory</a>
+						</div>
+					</div>
+				</div>
 				<!-- Display notification message -->
 				<?php include(ROOT_PATH . '/view/elements/messages.php') ?>
 
@@ -56,15 +69,6 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 					<h1 style="text-align: center; margin-top: 20px;">No Categories in the database.</h1>
 				<?php else: ?>
 					<table class="table table-hover">
-						<div class="mt-3 mb-3">
-							<div  style="width:50%; float:left" >
-								<a class="btn btn-outline-primary" href="<?php echo BASE_URL . 'view/admin/topics/categories_create.php' ?>">Create New Category</a>
-							</div>
-							<div style="width:50%; float:left" >
-								<a class="btn btn-outline-primary" style="float:right" href="<?php echo BASE_URL . 'view/admin/topics/subcategories_create.php' ?>">Create New Subcategory</a>
-							</div>
-							<div style="height:35px"></div>
-						</div>
 						<thead>
 							<th><b>N</b></th>
 							<th><b>Category Name</b></th>
@@ -78,13 +82,13 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 								<td><?= $key + 1; ?></td>
 								<td><?= $category->getName(); ?></td>
 								<td>
-									<a class="text-white btn btn-success" 
+									<a class="text-white btn btn-sm btn-success" 
 										href="<?php echo BASE_URL . 'view/admin/topics/categories_update.php?id='?><?= $category->getId(); ?>">
 										<i  class="fa fa-edit" style="font-size: 16px!important;"></i>
 									</a>
 								</td>
 								<td>
-									<a class="text-white btn btn-danger"
+									<a class="text-white btn btn-sm btn-danger"
 										href="<?php echo BASE_URL . 'view/admin/topics/categories_delete.php?id='?><?= $category->getId(); ?>">
 										<i class="fa fa-trash " style="font-size: 16px!important;"></i>
 									</a>
@@ -102,13 +106,13 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 												<tr>
 													<td><?= $subcategory->getName(); ?></td>
 													<td>
-														<a class="text-white btn btn-success" 
+														<a class="text-white btn btn-sm btn-success" 
 															href="<?php echo BASE_URL . 'view/admin/topics/subcategories_update.php?id='?><?= $subcategory->getId(); ?>">
 															<i class="fa fa-edit" style="font-size: 16px!important;"></i>
 														</a>
 													</td>
 													<td>
-														<a class="text-white btn btn-danger"
+														<a class="text-white btn btn-sm btn-danger"
 															href="<?php echo BASE_URL . 'view/admin/topics/subcategories_delete.php?id='?><?= $subcategory->getId(); ?>">
 															<i class="fa fa-trash " style="font-size: 16px!important;"></i>
 														</a>

@@ -17,6 +17,7 @@ class ArticleInfo {
     private $update_datum;
     private $subcategory_id;
     private $category_id;
+    private $specification_id;
    
     public function setId($id)
     {
@@ -157,6 +158,26 @@ class ArticleInfo {
     public function setDiscount($discount)
     {
         $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of specification_id
+     */ 
+    public function getSpecification_id()
+    {
+        return $this->specification_id;
+    }
+
+    /**
+     * Set the value of specification_id
+     *
+     * @return  self
+     */ 
+    public function setSpecification_id($specification_id)
+    {
+        $this->specification_id = $specification_id;
 
         return $this;
     }

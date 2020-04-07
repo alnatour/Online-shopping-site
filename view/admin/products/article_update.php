@@ -86,11 +86,6 @@ require (ROOT_PATH . '/view/elements/head_section.php');
               <input type="file" class="form-control inputstl waves-effect btn-lg btn" name='image'>
             </div><br /><br /><br /><br /><br />
             <div class="form-group">
-            <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
-          //<![CDATA[
-                  bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-            //]]>
-            </script>
               <label for="Email1msg"><b>Message:</b></label><br />
               <textarea rows="12" name = 'article' class="form-control"><?= $article->getArticle()  ?></textarea>
           <!-- Add textarea here -->

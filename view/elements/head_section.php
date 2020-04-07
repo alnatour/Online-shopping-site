@@ -55,7 +55,7 @@ require (ROOT_PATH . '/view/elements/counter.php');
 <div class="fixed-top">
   <nav class="navbar navbar-expand-lg  navbar-dark btn-group-toggle bg-primary p-2" >
     <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">
-    <img src="<?php echo BASE_URL . 'public/assets/img/logo-carousel/logo.png' ?>" height='40px'></a>
+    <img src="<?php echo BASE_URL . 'public/uploads/profileImage/logo/logo_alnatour.png' ?>" height='40px'></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

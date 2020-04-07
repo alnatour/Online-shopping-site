@@ -22,12 +22,23 @@ require 'model/Entity/Article.php';
 require 'model/ReviewsDb.php';
 require 'model/Entity/Reviews.php';
 
+require 'model/SpecificationDb.php';
+require 'model/Entity/Specification.php';
+
 require 'model/CategoriesDb.php';
 require 'model/Entity/Category.php';
 require 'model/SubCategoriesDb.php';
 require 'model/Entity/SubCategory.php';
 
 require 'view/main/contact_us/contactform.php';
+
+//Addresses
+require 'model/AdressesDb.php';
+require 'model/Entity/Address.php';
+
+//Order
+require 'model/OrdersDb.php';
+require 'model/Entity/Order.php';
 
 //Cart
 require 'model/Entity/CartProduct.php';

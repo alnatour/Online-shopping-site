@@ -10,17 +10,12 @@ if (isset($_GET['pid'])) {
     $productId = $_GET['pid'];
     $quantity = $_GET['pqty'];
   
-    
     $productDetails = $productsDao->GetByid($productId);
-
-    $cartProduct->setId($productId);
-
-    $cartProduct->setTitle($productDetails->getTitle());
     
+    $cartProduct->setId($productId);
+    $cartProduct->setTitle($productDetails->getTitle());
     $cartProduct->setPrice($productDetails->getPrice());
- 
     $cartProduct->setImage($productDetails->getImagee());
-
     $cartProduct->setDiscount($productDetails->getDiscount());
 
     if (isset($_SESSION['cart'])) {

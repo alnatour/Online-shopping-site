@@ -140,7 +140,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                           </div>
                       </div>
                       <div class="product-thumbs">
-                          <div class="product-thumbs-track ps-slider owl-carousel">
+                          <div class="product-thumbs-track ps-slider ">
                               <div class="pt active" data-imgbigurl="<?php echo BASE_URL . 'public/uploads/productImages/'?><?=$article['imagee']; ?>">
                                   <img src="<?php echo BASE_URL . 'public/uploads/productImages/'?><?=$article['imagee']; ?>" alt="" width="120">
                               </div>
@@ -231,10 +231,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                   <div class="row">
                                       <div class="col-lg-7">
                                           <h5>Introduction</h5>
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                              aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                                          <p><?= $article['article']; ?> </p>
                                           <h5>Features</h5>
                                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -273,7 +270,15 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                       <tr>
                                           <td class="p-catagory">Price</td>
                                           <td>
-                                              <div class="p-price">$<?= $article['price']; ?></div>
+                                              <div class="p-price">$
+                                                    <?php if(!empty($article['discount'])){ ?>
+                                                        <span class="mb-2" ><?= $article['price']-(($article['price']*$article['discount'])/100); ?>
+                                                        </span>
+                                                    <?php }?>
+                                                    <span class="mb-2 ml-1" <?php if(!empty($article['discount'])){ ?> style="text-decoration: line-through;font-size:12px;color:#7E9AA6" <?php }?>>
+                                                        <?= $article['price']; ?> 
+                                                    </span>
+                                                </div>
                                           </td>
                                       </tr>
                                       <tr>
@@ -285,24 +290,14 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                       <tr>
                                           <td class="p-catagory">Availability</td>
                                           <td>
-                                              <div class="p-stock">22 in stock</div>
+                                              <div class="p-stock"><?= (!empty($specification)) ? $specification->getStock() : "50"; ?> in stock</div>
                                           </td>
                                       </tr>
                                       <tr>
                                           <td class="p-catagory">Weight</td>
                                           <td>
-                                              <div class="p-weight">1,3kg</div>
+                                              <div class="p-weight"><?= (!empty($specification)) ? $specification->getWeight() : ""; ?> Gram</div>
                                           </td>
-                                      </tr>
-                                      <tr>
-                                          <td class="p-catagory">Size</td>
-                                          <td>
-                                              <div class="p-size">Xxl</div>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td class="p-catagory">Color</td>
-                                          <td><span class="cs-color"></span></td>
                                       </tr>
                                       <tr>
                                           <td class="p-catagory">Sku</td>
@@ -412,21 +407,23 @@ require (ROOT_PATH . '/view/elements/head_section.php');
     <a class='btn  btn-danger mt-4' href="" onclick="goBack()"><i class='fa fa-arrow-left' ></i> Back</a>
 </div>
 
-<script>
 
-$(document).ready(function(){
-    $("#zoom_mw").click(function(){ 
-        $(this).ezPlus({
-            scrollZoom: true
-        });
-        $(this).ezPlus({
-            scrollZoom: false
+
+<!-- script zoom Images-->
+<script>
+    $(document).ready(function(){
+        $("#zoom_mw").click(function(){ 
+            $(this).ezPlus({
+                scrollZoom: true
+            });
+            $(this).ezPlus({
+                scrollZoom: false
+            });
         });
     });
-});
-
 </script>
 
+<!-- script rating-star-->
   <script type="text/javascript">
     $(document).ready(function(){ /* PREPARE THE SCRIPT */
       $(".rating-star").click(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
@@ -448,6 +445,7 @@ $(document).ready(function(){
     });
   </script>
 
+<!-- script edit comment-->
 <script>
     $( "#edit_comment" ).click(function() {
     $('.comment-form').toggleClass( "show-comment" );

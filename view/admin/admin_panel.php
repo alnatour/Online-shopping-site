@@ -43,16 +43,10 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
 
 <br><br><br>
-<div class='d-flex justify-content-center'>
-    <form method="post" action='admin_panel.php' style='margin:20px 0' class="form-inline"> 
-        <input type="text" name="search" class="form-control mr-sm-2" value="<?=$search;?>">
-        <input type="submit" name="submit_search" value="Search" class="btn btn-outline-success btn-rounded btn-sm my-0" />
-        <br/>
-    </form>
-</div>
 
-<br><br>
-	<div class="container content">
+
+<br>
+	<div class="container content bg-white p-4">
 		<div class="row">
 			<!-- Left side menu -->
 			<div class="col-md-3  menu mb-4">
@@ -71,6 +65,22 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
 			<!-- Display records from DB-->
 			<div class="table-div col-9 table-hover table-responsive" >
+				<div class="container mb-2">
+					<div class="row">
+						<div class="col-8">
+							<div class='d-flex justify-content-center'>
+								<form method="post" action='admin_panel.php' class="form-inline"> 
+									<input type="text" name="search" class="form-control mr-sm-2" value="<?=$search;?>">
+									<input type="submit" name="submit_search" value="Search" class="btn btn-outline-success" />
+									<br/>
+								</form>
+							</div>
+						</div>
+						<div class="mb-2 col-4" style="float:right">
+							<a class="btn btn-outline-primary" href="<?php echo BASE_URL . 'view/admin/products/article_create.php' ?>" style="float: right;"><i class="fa fa-plus-circle"></i> Create Article</a>
+						</div>
+					</div>
+				</div>
 				<!-- Display notification message -->
 				<?php include(ROOT_PATH . '/view/elements/messages.php') ?>
 
@@ -78,9 +88,6 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 					<h1 style="text-align: center; margin-top: 20px;">No articles in the database.</h1>
 				<?php else: ?>
 					<table class="table admin-table">
-						<div class="mb-2">
-							<a class="btn btn-outline-primary" href="<?php echo BASE_URL . 'view/admin/products/article_create.php' ?>">Create Article</a>
-						</div>
 						<thead>
 							<th><b>N</b></th>
 							<th><b>Author</b></th>
@@ -94,29 +101,30 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 							<?php foreach ($articles as $key => $article): ?>
 							<tr>
 								<td><?= $key + 1; ?></td>
-								<td><?= $article->getFirstname(); ?></td>
-								<td><?= $article->getTitle(); ?></td>
-								<td><?php echo substr($article->getArticle() ,0 ,50);
-										if(strlen($article->getArticle()) > 50){?>
+								<td><span style="font-size: 14px!important;"><?= $article->getFirstname(); ?></span></td>
+								<td><span style="font-size: 14px!important;"><?= $article->getTitle(); ?></span></td>
+								<td><span style="font-size: 14px!important;"> <?php echo substr($article->getArticle() ,0 ,100);
+										if(strlen($article->getArticle()) > 100){?>
                                         	<a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $article->getId(); ?>">...</a>
 									<?php } ?>
+									</span> 
 								</td>
 								<td>
-									<a class="text-white btn btn-primary"
+									<a class="text-white btn btn-primary btn-sm"
 										 href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $article->getId(); ?>" >
-										<i class="fa fa-eye"></i>
+										<i class="fa fa-eye" style="font-size: 14px!important;"></i>
 									</a>
 								</td>
 								<td>
-									<a class="text-white btn btn-success" 
+									<a class="text-white btn btn-success btn-sm" 
 										href="<?php echo BASE_URL . 'view/admin/products/article_update.php?id='?><?php echo $article->getId() ?>">
-										<i class="fa fa-edit" style="font-size: 16px!important;"></i>
+										<i class="fa fa-edit" style="font-size: 14px!important;"></i>
 									</a>
 								</td>
 								<td>
-									<a class="text-white btn btn-danger" 
+									<a class="text-white btn btn-danger btn-sm" 
 										href="<?php echo BASE_URL . 'view/admin/products/article_delete.php?id='?><?php echo $article->getId() ?>">
-										<i class="fa fa-trash " style="font-size: 16px!important;"></i>
+										<i class="fa fa-trash " style="font-size: 14px!important;"></i>
 									</a>
 								</td>
 							</tr>

@@ -50,7 +50,7 @@ function addToCart(productId, productPrice) {
 
     setTimeout(function(){ 
         $("#cartDivHover").removeClass("cartdisplay")
-    }, 1000);
+    }, 6000);
  
 }
 

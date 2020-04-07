@@ -29,11 +29,13 @@
                     <div class="owl-item2">
                         <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $article->getId(); ?>">
                             <img src="<?php echo BASE_URL . 'public/uploads/productImages/'?><?= $article->getImagee(); ?>" alt="">
+                            <?php if(!empty($article->getDiscount())){ ?>
+                                <span class="discount"><?= $article->getDiscount();  ?>%</span>
+                            <?php } ?>
                         </a>
                     </div>
                 <?php } ?>
             </div>
-            
         </div>
         </div>
     </div>

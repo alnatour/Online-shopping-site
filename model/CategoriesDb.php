@@ -15,7 +15,7 @@ class CategoriesDb
 
     const GET_CAT_BY_ID = "SELECT * FROM categories WHERE id = ?";
 
-    const GET_ALL_SECTIONS_FOR_ARTICLE = "SELECT *, sc.name AS subcatname, p.id AS pid  FROM subcategories sc
+    const GET_TOPICS_FOR_ARTICLE = "SELECT *, sc.name AS subcatname, p.id AS pid  FROM subcategories sc
                             LEFT JOIN categories c ON sc.category_id = c.id 
                             LEFT JOIN products_tb p ON sc.id = p.subcategory_id 
                             WHERE p.id = ? ";
@@ -82,7 +82,7 @@ class CategoriesDb
      */
     function getSectionsForArticle($pid)
     {
-        $statement = $this->pdo->prepare(self::GET_ALL_SECTIONS_FOR_ARTICLE);
+        $statement = $this->pdo->prepare(self::GET_TOPICS_FOR_ARTICLE);
         $statement->execute(array($pid));
         $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
         //echo'<pre>';print_r($categories[0]['category_id']);die();

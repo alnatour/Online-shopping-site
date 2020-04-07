@@ -22,7 +22,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
     }
 
     #quantityText{
-        min-width: 42.63px!important;
+        min-width: 40px!important;
     }
     .proceed-btn {
         font-size: 14px;
@@ -43,13 +43,13 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         text-align: center;
     }
 </style>
-<br><br><br><br><br><br><br>
+<br><br><br>
 
 
 <div id="cartItems" style="display:none"><?= $cartItems ?></div>
 <div id="cartTotalPrice" style="display: none;"> <?= $cartTotalPrice ?></div>
 
-<div class="container">
+<div class="container bg-white p-4">
     <div class="row mx-auto">
         <div class=" col-12" id="content">
             <table class="table table-hover">
@@ -63,7 +63,9 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($cart as $cartProduct) { ?>
+                    <?php foreach ($cart as $cartProduct) {
+                        $priceWithDiscount= $cartProduct->getPrice()- ($cartProduct->getPrice()*$cartProduct->getDiscount()/100);
+                        ?>
                     <tr id="product-<?= $cartProduct->getId() ?>">
                         <td width="180">
                             <a href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $cartProduct->getId(); ?>">
@@ -74,17 +76,17 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                             <?= $cartProduct->getTitle() ?>
                         </td> 
                         <td>
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color:#dc3545;color:#fff">
-                                        <a onclick="removeOneQuantityFromCart(<?= $cartProduct->getId() . ',' . $cartProduct->getPrice() ?>)">
+                            <div class="input-group input-group-sm mb-2">
+                                <a style="cursor: pointer" onclick="removeOneQuantityFromCart(<?= $cartProduct->getId() . ',' . $priceWithDiscount ?>)">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="background-color:#dc3545;color:#fff">
                                             <i class="fa fa-minus"></i>
-                                        </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="quantityText">
-                                    <span id="quantityNumber" class="form-control">
-                                        <span id="product-<?= $cartProduct->getId() ?>-quantity">
+                                </a>
+                                <div id="quantityText" class="input-group-prepend "  >
+                                    <span id="quantityNumber" class="input-group-text bg-white" style="width:40px">
+                                        <span id="product-<?= $cartProduct->getId() ?>-quantity"  class="mx-auto">
                                             <?= $cartProduct->getQuantity() ?>
                                         </span>
                                         <span id="Quantity-<?= $cartProduct->getQuantity() ?>">
@@ -92,22 +94,23 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                                         </span>
                                     </span>
                                 </div>
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"  style="background-color:#1e7e34;color:#fff">
-                                        <a onclick="addOneQuantityToCart(<?= $cartProduct->getId() . ',' . $cartProduct->getPrice() ?>)"><i class="fa fa-plus"></i>
-                                        </a>
+                                <a style="cursor: pointer" onclick="addOneQuantityToCart(<?= $cartProduct->getId() . ',' . $priceWithDiscount ?>)">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"  style="background-color:#1e7e34;color:#fff">
+                                            <i class="fa fa-plus"></i>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </td>
                         <td>
-                            <span id="PriceOne-<?= $cartProduct->getPrice() ?>">
-                                <?= $cartProduct->getPrice() ?> 
+                            <span id="PriceOne-<?= number_format($priceWithDiscount,2) ?>">
+                                <?= number_format($priceWithDiscount,2) ?> 
                             </span>
                         </td>     
                         <td>
                             <span  id="product-<?= $cartProduct->getId() ?>-totalPrice">
-                                <?= $cartProduct->getPrice() * $cartProduct->getQuantity() ?>
+                                <?= number_format($priceWithDiscount * $cartProduct->getQuantity(),2) ?>
                             </span>
                         </td>
                     </tr>

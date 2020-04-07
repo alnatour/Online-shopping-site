@@ -43,13 +43,14 @@ require (ROOT_PATH . '/view/elements/head_section.php');
           border-radius: 5px;
           background-color: #f2f2f2;
           padding: 20px;
+          margin: 0 auto;
         }
         </style>
 
     <body>
-    <div class="container" style="margin-top:100px"> 
-        <div class="container-body"  style="margin: 0 auto;">
-        <p><h4 align="center">Contact Us</h4></p>
+    <div class="container bg-white" style="margin-top:70px;padding:50px"> 
+        <div class="container-body">
+            <p><h4 align="center">Contact Us</h4></p>
             <form  action="contactform.php " method="post" >
           
               <label for="fname">First Name</label>

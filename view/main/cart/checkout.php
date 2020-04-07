@@ -1,6 +1,8 @@
 <?php
 require '../../../config.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 if(!isset($_SESSION['user']) )
 {	// not logged in
     echo "
@@ -18,6 +20,267 @@ if(!isset($_SESSION['user']) )
 }
 require_once (ROOT_PATH . '/controlle/cart/show_cart_controller.php');
 
+require_once (ROOT_PATH . '/view/main/contact_us/PHPMailer/PHPMailer.php');
+require_once (ROOT_PATH . '/view/main/contact_us/PHPMailer/SMTP.php');
+require_once (ROOT_PATH . '/view/main/contact_us/PHPMailer/Exception.php');
+
+$mail = new PHPMailer();
+
+$adressesDb = AdressesDB::getInstance();
+$ordersDb = OrdersDb::getInstance();
+$usersDb  = ContactDB::getInstance();
+$address  = new Address;
+$order    = new Order();
+$user     = new User();
+$errors = array();
+
+$userAddress= $adressesDb->GetAddressUser($_SESSION['user']->getId());
+$user= $usersDb->GetUserByid($_SESSION['user']->getId());
+
+if(isset($_POST['submit'])){
+
+  if(empty($_POST['firstName'])){
+    array_push($errors, "firstName is required");
+  }
+  if(empty($_POST['lastName'])){
+    array_push($errors, "lastName is required");
+  }
+  if(empty($_POST['email'])){
+    array_push($errors, "Email is required");
+  }
+  if(empty($_POST['country'])){
+    array_push($errors, "Country is required");
+  }
+  if(empty($_POST['state'])){
+    array_push($errors, "State is required");
+  }
+  if(empty($_POST['zip'])){
+    array_push($errors, "Zip is required");
+  }
+  if(empty($_POST['address'])){
+    array_push($errors, "Address is required");
+  }
+  if (count($errors) == 0) {
+  $address->setUser_id($_SESSION['user']->getId());
+  $address->setCountry($_POST['country']);
+  $address->setState($_POST['state']);
+  $address->setZip($_POST['zip']);
+  $address->setAddress($_POST['address']);
+
+  if(empty($userAddress)){
+    $createAddress = $adressesDb->CreateAddress($address);
+  }else{
+    $updateAddress = $adressesDb->UpdateAddress($address);
+  }
+
+  $order->setUser_id($_SESSION['user']->getId());
+  $newOrder = $ordersDb->newOrder($order);
+  // Insert Orders in Database
+  foreach ($cart as $cartProduct) {
+    $order->setOrder_id($newOrder);
+    $order->setProduct_id($cartProduct->getId());
+    $order->setQuantity($cartProduct->getQuantity());
+
+    $createOrder = $ordersDb->CreateOrder($order);
+  }
+
+   // for Billing  Email
+  $products     = $ordersDb->GetOrderProductsByOrderId($newOrder);
+  $userAddress  = $adressesDb->GetAddressUser($_SESSION['user']->getId());
+
+  $specificationDb  = SpecificationDb::getInstance();
+  $articleInfo      = $specificationDb->GetSpeciWithProduct($productId);
+    try {
+
+      //Server settings
+      $mail->isSMTP();                                            // Send using SMTP
+      $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+      $mail->Username   = 'aaa.alnatour@gmail.com';                     // SMTP username
+      $mail->Password   = 'abdo770421';                               // SMTP password
+      $mail->SMTPSecure = "ssl";         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+      $mail->Port       = 465;                   //587                 // TCP port to connect to
+
+      //Recipients
+      $mail->setFrom($user->getEmail(), $user->getLastname());
+      $mail->addAddress('abdo.alnatoor@gmail.com', 'alnatoor');     // Add a recipient
+
+      // Content
+      $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->Subject = "Invoice your purchase";
+
+      $userEmail      = $user->getEmail();
+      $userFirstname  = ucfirst($user->getFirstname());
+      $userLastname   = ucfirst($user->getLastname());
+
+      $userCountry  = ucfirst($userAddress->getCountry());
+      $userState    = ucfirst($userAddress->getState());
+      $userZip      = ucfirst($userAddress->getZip());
+      $userAddress  = ucfirst($userAddress->getAddress());
+      $date     = date("Y-m-d h:i:sa");
+      $payable  = date('Y-m-d', strtotime("+14 day"));
+
+      $mail->Body  = "<html><head><title>bill</title></head>
+                      <body> 
+                      <table width='100%' style='background-color:#fcfcfc'><tbody><tr><td height='30'></td><td>
+                        <table width='600' align='center' style='font-size:16px;background-color:#ffffff'>
+                          <tbody><tr><td>
+                        <table  width='100%'>
+                          <tbody>
+                            <tr>
+                              <td align='center' colspan='4' height='30' style='background-color:#ff5555;letter-spacing: 12px;'>
+                                 purchase Invoice 
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align='right' width='50%'></td>
+                              <td align='right' width='50%'>
+                                <img src='https://pngimage.net/wp-content/uploads/2018/05/afi%C5%9F-tasar%C4%B1m-png.png' width='100%' height='70px'/></td>
+                            </tr>
+                            <tr>
+                              <td align='left' width='50%'>
+                                <table>
+                                  <tbody>
+                                    <tr> $userFirstname $userLastname </tr>
+                                    <tr><td height='5'></td></tr>
+                                    <tr> $userAddress </tr>
+                                    <tr> $userCountry, $userState, $userZip </tr>
+                                    <tr> Phone: (555) 555-5555 </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                              <td align='right' width='50%'>
+                                <table>
+                                  <tbody>
+                                    <tr><td height='20'></td></tr>
+                                    <tr><td class='font-weight: bold;font-size: 20px;'>Contact:</td></tr>
+                                    <tr><td>Alantour GMBH </td></tr>
+                                    <tr><td>Kreuzgasse 44 </td></tr>
+                                    <tr><td>Austria, Vienna, 1180</td></tr>
+                                    <tr><td>Tel. +43 68 110 86 85 66</td></tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+
+                            <tr> <td colspan='4' height='20'><td> </tr>
+
+                            <tr>
+                              <td align='left' width='50%'></td>
+                              <td align='right' width='50%'>
+                                <table style=' font-size:16px; border: 1px solid #000;' width='100%'>
+                                  <tbody>
+
+                                    <tr>
+                                      <td style='border-bottom: 1px solid #000;'>
+                                        <table width='100%'>
+                                          <tbody>
+                                            <tr>
+                                              <td align='left' width='50%' style='padding: 5px;text-align: left;background: #eee;'>Invoice #</td>
+                                              <td align='right' width='50%' > 000$newOrder </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                      <td style='border-bottom: 1px solid #000;'>
+                                        <table width='100%'>
+                                          <tbody>
+                                            <tr>
+                                              <td align='left' width='50%' style='padding: 5px;text-align: left;background: #eee;'>Date</td>
+                                              <td align='right' width='50%'>$date</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <table width='100%'>
+                                          <tbody>
+                                            <tr>
+                                              <td align='left' width='50%' style='padding: 5px;text-align: left;background: #eee;'>payable to</td>
+                                              <td align='right' width='50%'>$payable</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+
+                            <tr> <td colspan='4' height='20'><td> </tr>
+                          <tbody>
+                        </table>
+
+                        <table  width='100%' style='border: 1px solid #000;'>
+                          <thead style='background: #eee;'>
+                              <tr>
+                                <th align='left' style='padding: 5px;'>Sr No.</th>
+                                <th align='left' style='padding: 5px;'>Product Title</th>
+                                <th align='left' style='padding: 5px;'>Unit Cost</th>
+                                <th align='left' style='padding: 5px;'>Quantity</th>
+                                <th align='left' style='padding: 5px;'>Discount</th>
+                                <th align='left' style='padding: 5px;'>Price</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            ";
+                   
+                              foreach( $products as $key=>$product){
+                              $productTitle= $product['title'];
+                              $productPrice= $product['price'];
+                              $productDiscount= $product['discount'];
+                              $quantity= $product['quantity'];
+                              $totalPriceForProduct= number_format($product['price']- (($product['price'] * $product['quantity'])*$productDiscount/100), 2);
+                              $totalPrice = number_format($cartTotalPrice, 2);
+                              $serialNumber= $key+1;
+
+                              $mail->Body .= "<tr>"; 
+                              $mail->Body .= "<td style='padding: 10px;'>$serialNumber</td>";
+                              $mail->Body .= "<td style='padding: 10px;'>$productTitle</td>";
+                              $mail->Body .= "<td style='padding: 10px;'>$$productPrice</td>";
+                              $mail->Body .= "<td style='padding: 10px;'>$quantity</td>";
+                              $mail->Body .= "<td style='padding: 10px;'>%$productDiscount</td>";
+                              $mail->Body .= "<td style='padding: 10px;'>$$totalPriceForProduct</td>";
+                              $mail->Body .= "</tr>"; 
+                              }
+                              
+                              $mail->Body .=  "<tr> 
+                                                <td colspan='4'></td>
+                                                <td style='padding: 10px;background-color:#eee'>Balance Due</td>
+                                                <td style='padding: 10px;background-color:#eee'>$$totalPrice</td>
+                                              </tr>
+                            </tbody></table>
+                        <table width='100%'>
+                          <tbody>
+                            <tr><td height='20px' width='100%'></td></tr>
+                            <tr><td width='100%' align='center' style='border-bottom: 1px solid #000; letter-spacing: 10px;'>TERMS</td></tr>
+                            <tr><td width='100%' height='10px'></td></tr>
+                            <tr><td width='100%' align='center'>NET 14 Days. Finance Charge of 4% will be made on unpaid balances after 14 days.</td></tr>
+                          </tbody>
+                        </table>
+                        </td></tr></tbody></table></td></tr></tbody></table></body></html>";
+
+      $mail->send();
+
+  } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+
+  unset($_SESSION['cart']);
+  $_SESSION['purchase'] = "Thank you for your purchase! Your order number is .'$newOrder'. . we'd love to hear your feedback.";
+  header('Location: '.BASE_URL.'index.php');
+}
+}
+
+//echo'<pre>';print_r($cart);die;  $balanceDue = $totalPriceForProduct * lenght($totalPriceForProduct);
+
 require (ROOT_PATH . '/view/elements/head_section.php');
 ?>
 
@@ -28,12 +291,9 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
 </style>
 
-
-
-<div class="bg-light">
-    <div class="container">
+<div class="container bg-white">
   <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <img class="d-block mx-auto mb-4" src="" alt="" width="72" height="40">
     <h2>Checkout</h2>
   </div>
 
@@ -44,13 +304,15 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         <span class="badge badge-secondary badge-pill"> Number of Items (<?= $cartItems ?>)</span>
       </h4>
       <ul class="list-group mb-3">
-            <?php foreach ($cart as $cartProduct) { ?>
+            <?php foreach ($cart as $cartProduct) { 
+              $priceWithDiscount= $cartProduct->getPrice()- ($cartProduct->getPrice()*$cartProduct->getDiscount()/100);
+              ?>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
         <div>
             <h6 class="my-0"><?= $cartProduct->getTitle() ?></h6>
             <small class="text-muted">Quantity (<?= $cartProduct->getQuantity() ?>)</small>
         </div>
-        <span class="text-muted"><?= $cartProduct->getQuantity() * $cartProduct->getPrice() ?>€</span>
+        <span class="text-muted"><?= number_format($cartProduct->getQuantity() * $priceWithDiscount , 2) ?>€</span>
         </li>
             <?php } ?>
 
@@ -63,7 +325,7 @@ require (ROOT_PATH . '/view/elements/head_section.php');
         </li>
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (EUR)</span>
-          <strong><?= number_format($cartTotalPrice ,2, '.','2') ?> €</strong>
+          <strong><?= number_format($cartTotalPrice ,2) ?> €</strong>
         </li>
       </ul>
 
@@ -80,14 +342,14 @@ require (ROOT_PATH . '/view/elements/head_section.php');
                 <label class="custom-control-label" for="paypal">PayPal</label>
             </div>
         </div>
-             <div class="row">
+            <div class="row">
                 <!-- Credit card . -->
                 <div class="form-row hidden credit" style="">
-                    <?php include(ROOT_PATH . 'view/main/cart/payment/payment.html') ?>
+                    <?php include(ROOT_PATH . '/view/main/cart/payment/payment.html') ?>
                 </div>
                 <!-- paypal . -->
                 <div class="form-row hidden paypal" style="">
-                    <?php include(ROOT_PATH . 'view/main/cart/payment/paypal.php') ?>
+                    <?php include(ROOT_PATH . '/view/main/cart/payment/paypal.php') ?>
                 </div>
             </div>
 
@@ -95,52 +357,61 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
+      
+      <?php  foreach($errors as $error){ ?>
+          <p class="text-danger bg-warning"><?= $error ?></p>
+      <?php } ?>
 
       <form class="needs-validation" action="" method="POST" novalidate="" id="payment-form">
 
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="<?=$_SESSION['user']->getFirstname()?>" required="">
+            <input type="text" class="form-control" id="firstName" name="firstName" value="<?=$_SESSION['user']->getFirstname()?>" required="">
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="<?=$_SESSION['user']->getLastname()?>" required="">
+            <input type="text" class="form-control" id="lastName" name="lastName" value="<?=$_SESSION['user']->getLastname()?>" required="">
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
           </div>
         </div>
 
-        <div class="mb-3">
-          <label for="email">Email</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">@</span>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="email">Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+              </div>
+              <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required="" value="<?=$_SESSION['user']->getEmail()?>">
+              <div class="invalid-feedback" style="width: 100%;">
+                  Please enter a valid email address for shipping updates.
+              </div>
             </div>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com" required="" value="<?=$_SESSION['user']->getEmail()?>">
-            <div class="invalid-feedback" style="width: 100%;">
-                Please enter a valid email address for shipping updates.
+          </div>
+          <div class="col-md-6 mb-3 mt-3">
+            <label for="telephone">Telephone Number</label>
+            <input type="number" class="form-control" id="telephone" name="telephone" value=""  min="8" max="12">
+            <div class="invalid-feedback">
+              Valid Telephone Number is required.
             </div>
           </div>
         </div>
-
-        <div class="mb-3">
-          <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
-        </div>
-
+        
         <div class="row">
           <div class="col-md-5 mb-3">
             <label for="country">Country</label>
             <select id="country" name="country" class="form-control">
                 <option value="">Choose...</option>
+                <?php 
+                  if(!empty($userAddress)){ ?>
+                    <option value="<?=$userAddress->getCountry()?>" selected><?=$userAddress->getCountry()?></option>
+                <?php } ?>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
                 <option value="Albania">Albania</option>
@@ -392,43 +663,66 @@ require (ROOT_PATH . '/view/elements/head_section.php');
           </div>
           <div class="col-md-4 mb-3">
             <label for="state">State</label>
-            <input type="text" class="form-control" id="state" placeholder="" required="">
+            <input 
+                type="text" 
+                class="form-control" 
+                name="state" 
+                id="state" 
+                placeholder="" 
+                required="" 
+                value ="<?= (!empty($userAddress)) ?  $userAddress->getState() :  '' ;?>"
+                />
             <div class="invalid-feedback">
               Please provide a valid state.
             </div>
           </div>
           <div class="col-md-3 mb-3">
             <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" required="">
+            <input 
+                type="text" 
+                class="form-control" 
+                name="zip" 
+                id="zip" 
+                placeholder="" 
+                required=""
+                value ="<?= (!empty($userAddress)) ?  $userAddress->getZip() :  '' ;?>"
+                />
             <div class="invalid-feedback">
               Zip code required.
             </div>
           </div>
         </div>
-        <div class="col-md-6 mb-3 mt-4">
-            <label for="firstName">Telephone Number</label>
-            <input type="number" class="form-control" id="firstName" placeholder="" value="" required="" min="8" max="12">
-            <div class="invalid-feedback">
-              Valid Telephone Number is required.
-            </div>
-          </div>
 
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <input 
+                type="text" 
+                class="form-control" 
+                id="address"  
+                name="address" 
+                placeholder="Street  Nr.Hose" 
+                required=""
+                value="<?= (!empty($userAddress)) ?  $userAddress->getAddress() :  '' ;?>"
+                />
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+        <br>
         <hr class="mb-4">
         <div class="custom-control custom-radio">
           <input type="checkbox" class="custom-control-input" id="same-address" style="margin-left:10px!important">
           <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
         </div>
         
-        <input type="submit" class="btn btn-primary btn-lg btn-block mt-4" name="submit_checkout" value="Continue to checkout" />
+        <input type="submit" class="btn btn-primary btn-lg btn-block mt-4" name="submit" value="Continue to checkout" />
       </form>
 
       
 
     </div>
   </div>
-</div>
-
-<br><br><br>
+  <br><br>
 </div>
 
 <script>
@@ -445,8 +739,6 @@ $(document).ready(function(){
     });  
 });  
 </script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
 <script>
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {

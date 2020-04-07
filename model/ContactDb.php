@@ -9,7 +9,7 @@ class ContactDb
     const SQL_INDEX             = "SELECT * FROM users";
     const SQL_INDEX_SEARCH      = " WHERE email LIKE ? OR firstname LIKE ? OR lastname LIKE ?";
 
-    const Get_Address_ByID      = "SELECT * FROM users WHERE id = ?";
+    const GET_USER_BY_ID      = "SELECT email, firstname, lastname, phone FROM users WHERE id = ?";
     const getAddressByEmail     = "SELECT * FROM users WHERE email = ?";
 
     const SQL_INSERT            = "INSERT INTO users (email, firstname, lastname, street, zip, city, country, phone, fax, mobile, internet, company) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -68,11 +68,11 @@ class ContactDb
         $contacts = $statement->fetchAll(PDO::FETCH_CLASS, Contact::class);
         return $contacts;
     }
-    function GetAddressByid($id)
+    function GetUserByid($id)
     {
-        $statement = $this->pdo->prepare(self::Get_Address_ByID);
+        $statement = $this->pdo->prepare(self::GET_USER_BY_ID);
         $statement->execute(array($id));
-        $contact = $statement->fetchObject(Contact::class);
+        $contact = $statement->fetchObject(User::class);
  
 
         return $contact;

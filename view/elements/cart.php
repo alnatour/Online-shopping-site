@@ -11,6 +11,7 @@
                 </a>
             </div>
             <div id="cartDivHover" class="cart-hover">
+                <div align="left"><i id="closeCart" class='fa fa-times text-white' style="cursor: pointer;"> Close</i></div>
                 
                 <div id="cartDivHover2" class="cart-items"></div>
 
@@ -27,3 +28,9 @@
         </li>
     </ul>
 </div>
+
+<script>
+$("#closeCart").click(function(){
+    $(".cart-hover").removeClass("cartdisplay");
+});
+</script>

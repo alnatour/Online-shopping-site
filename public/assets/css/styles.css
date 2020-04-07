@@ -220,3 +220,14 @@ body{
   .sticky{
 	padding-top: 80px;
   }
+
+  .discount {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #FF0000;
+    color: rgb(248, 250, 251);
+    padding: 4px 6px;
+}

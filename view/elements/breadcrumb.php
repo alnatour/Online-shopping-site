@@ -25,15 +25,15 @@ if( isset($_GET['subcid']) ){
         <?php } } }?>
         <!--- Subcategories breadcrumb ---->
         <?php if( isset($_GET['subcid']) ){  ?>
-                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4"></i><a  href="<?php echo BASE_URL . 'index.php?cid='?><?= $subcategories_breadcrumb['catId']; ?>"><?= $subcategories_breadcrumb['catname']; ?></a></li>
+                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4"></i><a  href="<?php echo BASE_URL . 'index.php?cid='?><?= $subcategories_breadcrumb['catId']; ?>"><?= ucfirst($subcategories_breadcrumb['catname']); ?></a></li>
 
-                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4" ></i><a  href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategories_breadcrumb['id']; ?>"><?= $subcategories_breadcrumb['name']; ?></a></li>
+                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4" ></i><a  href="<?php echo BASE_URL . 'index.php?subcid='?><?= $subcategories_breadcrumb['id']; ?>"><?= ucfirst($subcategories_breadcrumb['name']); ?></a></li>
         <?php  }?>
         <!--- Single product ---->
         <?php if( isset($_GET['id']) ){  ?>
-                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4" ></i><a  href="<?php echo BASE_URL . 'index.php?cid='?><?= $article['category_id']; ?>"><?= $article['catname']; ?></a></li>
+                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4" ></i><a  href="<?php echo BASE_URL . 'index.php?cid='?><?= $article['category_id']; ?>"><?= ucfirst($article['catname']); ?></a></li>
 
-                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4" ></i><a  href="<?php echo BASE_URL . 'index.php?subcid='?><?= $article['subcategory_id']; ?>"><?= $article['subcatname']; ?></a></li>
+                <li class="breadcrumb-item"><i class="fa fa-angle-right text-white pr-4" ></i><a  href="<?php echo BASE_URL . 'index.php?subcid='?><?= $article['subcategory_id']; ?>"><?= ucfirst($article['subcatname']); ?></a></li>
         <?php  }?>
     </ol>
 </nav>

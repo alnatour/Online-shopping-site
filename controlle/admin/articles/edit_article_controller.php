@@ -70,9 +70,11 @@ if (isset($_POST['submit_update'])) {
           array_push($errors, "Image is required");
       }
 
+      
     //insert new user 
     if (count($errors) == 0) {
       $edit = $ArticleDb->editArticle($article);
+      
       header('location: '.BASE_URL.'view/main/single.php?id='.$id.'');
     }
   }

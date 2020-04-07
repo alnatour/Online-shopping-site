@@ -46,19 +46,14 @@ $PageCount = ceil($total/$PageSize);
 
 require (ROOT_PATH . '/view/elements/head_section.php');
 ?>
-
-
-<br><br><br>
-<div class='d-flex justify-content-center'>
-    <form method="post" action='admin_panel.php' style='margin:20px 0' class="form-inline"> 
-        <input type="text" name="search" class="form-control mr-sm-2" value="<?=$search;?>">
-        <input type="submit" name="submit_search" value="Search" class="btn btn-outline-success btn-rounded btn-sm my-0" />
-        <br/>
-    </form>
-</div>
+<style>
+.table tbody tr td span{
+	font-size:14px;
+}
+</style>
 
 <br><br>
-	<div class="container content bg-white">
+	<div class="container content bg-white p-4 mt-4">
 		<div class="row">
 			<!-- Left side menu -->
 			<div class="menu col-3">
@@ -78,6 +73,18 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 
 			<!-- Display records from DB-->
 			<div class="table-div col-9 table-hover" >
+
+				<div class="row">
+					<div class="col-8">
+						<div class='d-flex justify-content-center'>
+							<form method="post" action='admin_panel.php' style='margin:20px 0' class="form-inline"> 
+								<input type="text" name="search" class="form-control mr-sm-2" value="<?=$search;?>">
+								<input type="submit" name="submit_search" value="Search" class="btn btn-outline-success btn-rounded btn-sm my-0" />
+								<br/>
+							</form>
+						</div>
+					</div>
+				</div>
 				<!-- Display notification message -->
 				<?php include(ROOT_PATH . '/view/elements/messages.php') ?>
 
@@ -99,11 +106,11 @@ require (ROOT_PATH . '/view/elements/head_section.php');
 							<?php foreach ($comments as $key => $comment): ?>
 							<tr>
 								<td><?= $key + 1; ?></td>
-								<td><?= $comment['firstname']; ?></td>
-								<td><?= $comment['lastname']; ?></td>
-								<td><?= $comment['email']; ?></td>
-								<td><?= $comment['rating']; ?></td>
-								<td><?= $comment['comment']; ?></td>
+								<td><span> <?= $comment['firstname']; ?></span></td>
+								<td><span><?= $comment['lastname']; ?></span></td>
+								<td><span><?= $comment['email']; ?></span></td>
+								<td><span><?= $comment['rating']; ?></span></td>
+								<td><span><?= $comment['comment']; ?></span></td>
 								<td>
 									<a class="text-success" href="<?php echo BASE_URL . 'view/main/single.php?id='?><?= $comment['product_id']; ?>" >
 										<i class="fa fa-eye text-success"></i>
